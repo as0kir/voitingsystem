@@ -21,9 +21,13 @@ public class Menu extends AbstractBaseEntity{
     public Menu() {
     }
 
-    public Menu(@NotNull Restaurant restaurant, @NotBlank LocalDate dateSet) {
-        this.restaurant = restaurant;
+    public Menu(Integer id, @NotBlank LocalDate dateSet) {
+        super(id);
         this.dateSet = dateSet;
+    }
+
+    public Menu(@NotBlank LocalDate dateSet) {
+        this(null, dateSet);
     }
 
     public Restaurant getRestaurant() {
