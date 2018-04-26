@@ -49,7 +49,6 @@ public class Menu extends AbstractBaseEntity{
     @Override
     public String toString() {
         return "Menu{" +
-                "restaurant=" + restaurant +
                 ", dateSet=" + dateSet +
                 '}';
     }

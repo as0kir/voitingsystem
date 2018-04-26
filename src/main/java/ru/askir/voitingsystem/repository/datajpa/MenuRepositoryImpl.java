@@ -2,13 +2,15 @@ package ru.askir.voitingsystem.repository.datajpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.askir.voitingsystem.model.Menu;
 import ru.askir.voitingsystem.repository.MenuRepository;
 
 import java.util.List;
 
-public class DataJpaMenuRepositoryImpl implements MenuRepository {
+@Repository
+public class MenuRepositoryImpl implements MenuRepository {
     private static final Sort SORT_NAME = new Sort(Sort.Direction.ASC, "dateSet");
 
     @Autowired

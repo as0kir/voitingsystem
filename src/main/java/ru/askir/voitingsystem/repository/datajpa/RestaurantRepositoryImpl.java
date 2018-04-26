@@ -9,7 +9,7 @@ import ru.askir.voitingsystem.repository.RestaurantRepository;
 import java.util.List;
 
 @Repository
-public class DataJpaRestaurantRepositoryImpl implements RestaurantRepository {
+public class RestaurantRepositoryImpl implements RestaurantRepository {
     private static final Sort SORT_NAME = new Sort(Sort.Direction.ASC, "name");
 
     @Autowired

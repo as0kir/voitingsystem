@@ -1,6 +1,7 @@
 package ru.askir.voitingsystem.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.askir.voitingsystem.model.Menu;
 import ru.askir.voitingsystem.repository.MenuRepository;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import static ru.askir.voitingsystem.util.ValidationUtil.checkNotFoundWithId;
 
+@Service
 public class MenuServiceImpl implements MenuService {
 
     private final MenuRepository repository;

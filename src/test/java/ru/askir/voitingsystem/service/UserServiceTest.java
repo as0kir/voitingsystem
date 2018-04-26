@@ -8,33 +8,41 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.askir.voitingsystem.model.Restaurant;
+import ru.askir.voitingsystem.model.Role;
+import ru.askir.voitingsystem.model.User;
 import ru.askir.voitingsystem.util.NotFoundException;
 
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
-import static data.RestaurantTestData.*;
+import static data.UserTestData.*;
 
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 @ContextConfiguration({"classpath:spring/spring-context.xml"})
-public class DataJpaRestaurantServiceTest extends ServiceTest {
+public class UserServiceTest extends ServiceTest {
 
     @Autowired
-    private RestaurantService service;
+    private UserService service;
 
     @Test
     public void create() throws Exception {
-        Restaurant newRestaurant = new Restaurant("3Новый");
-        Restaurant created = service.create(newRestaurant);
-        newRestaurant.setId(created.getId());
-        assertMatch(service.getAll(), RESTAURANT1, RESTAURANT2, newRestaurant);
+        User newUser = new User(null, "New", "new@gmail.com", "newPass", false, new Date(), Collections.singleton(Role.ROLE_USER));
+        User created = service.create(newUser);
+        newUser.setId(created.getId());
+        assertMatch(service.getAll(), ADMIN, newUser, USER);
+    }
+
+    @Test(expected = DataAccessException.class)
+    public void duplicateMailCreate() throws Exception {
+        service.create(new User(null, "Duplicate", "user@yandex.ru", "newPass", Role.ROLE_USER));
     }
 
     @Test
     public void delete() throws Exception {
-        service.delete(RESTAURANT1_ID);
-        assertMatch(service.getAll(), RESTAURANT2);
+        service.delete(USER_ID);
+        assertMatch(service.getAll(), ADMIN);
     }
 
     @Test(expected = NotFoundException.class)
@@ -44,8 +52,8 @@ public class DataJpaRestaurantServiceTest extends ServiceTest {
 
     @Test
     public void get() throws Exception {
-        Restaurant restaurant = service.get(RESTAURANT1_ID);
-        assertMatch(restaurant, RESTAURANT1);
+        User user = service.get(USER_ID);
+        assertMatch(user, USER);
     }
 
     @Test(expected = NotFoundException.class)
@@ -55,15 +63,15 @@ public class DataJpaRestaurantServiceTest extends ServiceTest {
 
     @Test
     public void update() throws Exception {
-        Restaurant updated = new Restaurant(RESTAURANT1);
+        User updated = new User(USER);
         updated.setName("UpdatedName");
         service.update(updated);
-        assertMatch(service.get(RESTAURANT1_ID), updated);
+        assertMatch(service.get(USER_ID), updated);
     }
 
     @Test
     public void getAll() throws Exception {
-        List<Restaurant> all = service.getAll();
-        assertMatch(all, RESTAURANT1, RESTAURANT2);
+        List<User> all = service.getAll();
+        assertMatch(all, ADMIN, USER);
     }
 }

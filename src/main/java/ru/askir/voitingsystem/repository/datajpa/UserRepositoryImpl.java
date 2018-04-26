@@ -9,7 +9,7 @@ import ru.askir.voitingsystem.repository.UserRepository;
 import java.util.List;
 
 @Repository
-public class DataJpaUserRepositoryImpl implements UserRepository{
+public class UserRepositoryImpl implements UserRepository{
     private static final Sort SORT_NAME = new Sort(Sort.Direction.ASC, "name");
 
     @Autowired

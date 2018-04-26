@@ -3,46 +3,37 @@ package ru.askir.voitingsystem.service;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.askir.voitingsystem.model.Role;
-import ru.askir.voitingsystem.model.User;
+import ru.askir.voitingsystem.model.Restaurant;
 import ru.askir.voitingsystem.util.NotFoundException;
 
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
-import static data.UserTestData.*;
+import static data.RestaurantTestData.*;
 
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 @ContextConfiguration({"classpath:spring/spring-context.xml"})
-public class DataJpaUserServiceTest extends ServiceTest {
+public class RestaurantServiceTest extends ServiceTest {
 
     @Autowired
-    private UserService service;
+    private RestaurantService service;
 
     @Test
     public void create() throws Exception {
-        User newUser = new User(null, "New", "new@gmail.com", "newPass", false, new Date(), Collections.singleton(Role.ROLE_USER));
-        User created = service.create(newUser);
-        newUser.setId(created.getId());
-        assertMatch(service.getAll(), ADMIN, newUser, USER);
-    }
-
-    @Test(expected = DataAccessException.class)
-    public void duplicateMailCreate() throws Exception {
-        service.create(new User(null, "Duplicate", "user@yandex.ru", "newPass", Role.ROLE_USER));
+        Restaurant newRestaurant = new Restaurant("3Новый");
+        Restaurant created = service.create(newRestaurant);
+        newRestaurant.setId(created.getId());
+        assertMatch(service.getAll(), RESTAURANT1, RESTAURANT2, newRestaurant);
     }
 
     @Test
     public void delete() throws Exception {
-        service.delete(USER_ID);
-        assertMatch(service.getAll(), ADMIN);
+        service.delete(RESTAURANT1_ID);
+        assertMatch(service.getAll(), RESTAURANT2);
     }
 
     @Test(expected = NotFoundException.class)
@@ -52,8 +43,8 @@ public class DataJpaUserServiceTest extends ServiceTest {
 
     @Test
     public void get() throws Exception {
-        User user = service.get(USER_ID);
-        assertMatch(user, USER);
+        Restaurant restaurant = service.get(RESTAURANT1_ID);
+        assertMatch(restaurant, RESTAURANT1);
     }
 
     @Test(expected = NotFoundException.class)
@@ -63,15 +54,15 @@ public class DataJpaUserServiceTest extends ServiceTest {
 
     @Test
     public void update() throws Exception {
-        User updated = new User(USER);
+        Restaurant updated = new Restaurant(RESTAURANT1);
         updated.setName("UpdatedName");
         service.update(updated);
-        assertMatch(service.get(USER_ID), updated);
+        assertMatch(service.get(RESTAURANT1_ID), updated);
     }
 
     @Test
     public void getAll() throws Exception {
-        List<User> all = service.getAll();
-        assertMatch(all, ADMIN, USER);
+        List<Restaurant> all = service.getAll();
+        assertMatch(all, RESTAURANT1, RESTAURANT2);
     }
 }
