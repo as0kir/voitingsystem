@@ -14,8 +14,8 @@ INSERT INTO user_roles (role, user_id) VALUES
   ('ROLE_ADMIN', 100001);
 
 INSERT INTO restaurants(name) VALUES
-  ('Утюг'),
-  ('Шашлык');
+  ('1Утюг'),
+  ('2Шашлык');
 
 INSERT INTO menu(id_restaurant, date_set) VALUES
   (100002, '2018-04-07 00:00:00'),
