@@ -1,13 +1,9 @@
-package data;
+package ru.askir.voitingsystem.data;
 
 import ru.askir.voitingsystem.model.Dish;
-import ru.askir.voitingsystem.model.Dish;
-
-import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 
-import static java.time.LocalDate.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static ru.askir.voitingsystem.model.AbstractBaseEntity.START_SEQ;
 

@@ -10,8 +10,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import ru.askir.voitingsystem.model.Menu;
 import ru.askir.voitingsystem.util.NotFoundException;
 
-import static data.MenuTestData.*;
-import static data.RestaurantTestData.*;
+import static ru.askir.voitingsystem.data.MenuTestData.*;
+import static ru.askir.voitingsystem.data.RestaurantTestData.*;
 
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))

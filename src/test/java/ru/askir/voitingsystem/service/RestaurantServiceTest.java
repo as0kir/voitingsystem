@@ -12,7 +12,7 @@ import ru.askir.voitingsystem.util.NotFoundException;
 
 import java.util.List;
 
-import static data.RestaurantTestData.*;
+import static ru.askir.voitingsystem.data.RestaurantTestData.*;
 
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))

@@ -7,68 +7,74 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.askir.voitingsystem.model.Dish;
+import ru.askir.voitingsystem.model.Voite;
+import ru.askir.voitingsystem.model.Voite;
 import ru.askir.voitingsystem.util.NotFoundException;
 
-import static ru.askir.voitingsystem.data.DishTestData.*;
+import static ru.askir.voitingsystem.data.VoiteTestData.*;
+import static ru.askir.voitingsystem.data.VoiteTestData.VOITES;
 import static ru.askir.voitingsystem.data.MenuTestData.MENU1_1_ID;
 import static ru.askir.voitingsystem.data.MenuTestData.MENU1_2_ID;
+import static ru.askir.voitingsystem.data.UserTestData.ADMIN_ID;
+import static ru.askir.voitingsystem.data.UserTestData.USER_ID;
+
 
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 @ContextConfiguration({"classpath:spring/spring-context.xml"})
-public class DishServiceTest extends AbstractServiceTest {
+public class VoiteServiceTest extends AbstractServiceTest{
 
     @Autowired
-    private DishService service;
+    private VoiteService service;
 
     @Test
     public void delete() throws Exception {
-        service.delete(DISH1_ID, MENU1_1_ID);
-        assertMatch(service.getAll(MENU1_1_ID), DISH1_3, DISH1_2);
+        service.delete(VOITE1_ID, USER_ID, MENU1_1_ID);
+        assertMatch(service.getAll(USER_ID, MENU1_1_ID), VOITE1_2);
     }
 
     @Test
     public void deleteNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
-        service.delete(DISH1_ID, 1);
+        service.delete(VOITE1_ID, 1, 1);
     }
 
     @Test
     public void create() throws Exception {
-        Dish created = getCreated();
-        service.create(created, MENU1_1_ID);
-        assertMatch(service.getAll(MENU1_1_ID), created, DISH1_3, DISH1_2, DISH1_1);
+        Voite created = getCreated();
+        service.create(created, USER_ID, MENU1_1_ID);
+        assertMatch(service.getAll(USER_ID, MENU1_1_ID), created, VOITE1_2, VOITE1_1);
     }
 
     @Test
     public void get() throws Exception {
-        Dish actual = service.get(DISH1_ID, MENU1_1_ID);
-        assertMatch(actual, DISH1_1);
+        Voite actual = service.get(VOITE1_ID, USER_ID, MENU1_1_ID);
+        assertMatch(actual, VOITE1_1);
     }
 
     @Test
     public void getNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
-        service.get(DISH1_ID, MENU1_2_ID);
+        service.get(VOITE1_ID, USER_ID, MENU1_2_ID);
     }
 
     @Test
     public void update() throws Exception {
-        Dish updated = getUpdated();
-        service.update(updated, MENU1_1_ID);
-        assertMatch(service.get(DISH1_ID, MENU1_1_ID), updated);
+        Voite updated = getUpdated();
+        service.update(updated, USER_ID, MENU1_1_ID);
+        assertMatch(service.get(VOITE1_ID, USER_ID, MENU1_1_ID), updated);
     }
 
     @Test
     public void updateNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
-        thrown.expectMessage("Not found entity with id=" + DISH1_ID);
-        service.update(DISH1_1, MENU1_2_ID);
+        thrown.expectMessage("Not found entity with id=" + VOITE1_ID);
+        service.update(VOITE1_1, USER_ID, MENU1_2_ID);
     }
 
     @Test
     public void getAll() throws Exception {
-        assertMatch(service.getAll(MENU1_1_ID), DISHES);
+        assertMatch(service.getAll(USER_ID, MENU1_1_ID), VOITES);
     }
+
 }
