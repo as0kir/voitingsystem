@@ -51,7 +51,7 @@ public class UserServiceTest extends ServiceTest {
     }
 
     @Test
-    public void get() throws  Exception {
+    public void get() throws Exception {
         User user = service.get(USER_ID);
         assertMatch(user,  USER);
     }
