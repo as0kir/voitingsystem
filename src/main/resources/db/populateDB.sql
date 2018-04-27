@@ -1,3 +1,4 @@
+DELETE FROM dishes;
 DELETE FROM menu;
 DELETE FROM restaurants;
 DELETE FROM user_roles;
@@ -22,3 +23,10 @@ INSERT INTO menu(id_restaurant, date_set) VALUES
   (100002, '2018-04-08 00:00:00'), -- 100005
   (100003, '2018-04-07 00:00:00'), -- 100006
   (100003, '2018-04-08 00:00:00'); -- 100007
+
+
+INSERT INTO dishes(id_menu, name, price) VALUES
+  (100004, '1Борщ', 50),           -- 100008
+  (100004, '2Котлета', 30),        -- 100009
+  (100004, '3Компот', 20.50),      -- 100010
+  (100005, '1Оливье', 72.30);      -- 100011
