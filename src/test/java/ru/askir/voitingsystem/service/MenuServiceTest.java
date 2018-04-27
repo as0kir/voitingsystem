@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import ru.askir.voitingsystem.model.Menu;
 import ru.askir.voitingsystem.util.NotFoundException;
 
-import static data.MenuTestData1.*;
+import static data.MenuTestData.*;
 import static data.RestaurantTestData.*;
 
 @RunWith(SpringRunner.class)
