@@ -16,12 +16,12 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import static data.UserTestData.*;
+import static ru.askir.voitingsystem.data.UserTestData.*;
 
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 @ContextConfiguration({"classpath:spring/spring-context.xml"})
-public class DataJpaUserServiceTest extends ServiceTest {
+public class UserServiceTest extends AbstractServiceTest {
 
     @Autowired
     private UserService service;
@@ -53,7 +53,7 @@ public class DataJpaUserServiceTest extends ServiceTest {
     @Test
     public void get() throws Exception {
         User user = service.get(USER_ID);
-        assertMatch(user, USER);
+        assertMatch(user,  USER);
     }
 
     @Test(expected = NotFoundException.class)

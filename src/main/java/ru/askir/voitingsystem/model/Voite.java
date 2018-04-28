@@ -1,0 +1,69 @@
+package ru.askir.voitingsystem.model;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "voites", uniqueConstraints = {@UniqueConstraint(name = "voites_unique_user_menu", columnNames = {"id_user", "id_menu"})})
+public class Voite extends AbstractBaseEntity {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user", nullable = false)
+    @NotNull
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_menu", nullable = false)
+    @NotNull
+    private Menu menu;
+
+    @Column(name = "date_set", nullable = false)
+    private @NotBlank LocalDateTime dateSet;
+
+    public Voite() {
+    }
+
+    public Voite(Integer id, @NotBlank User user, @NotBlank Menu menu, LocalDateTime dateSet) {
+        super(id);
+        this.user = user;
+        this.menu = menu;
+        this.dateSet = dateSet;
+    }
+
+    public Voite(@NotBlank User user, @NotBlank Menu menu, LocalDateTime dateSet) {
+        this(null, user, menu, dateSet);
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
+
+    public LocalDateTime getDateSet() {
+        return dateSet;
+    }
+
+    public void setDateSet(LocalDateTime dateSet) {
+        this.dateSet = dateSet;
+    }
+
+    @Override
+    public String toString() {
+        return "Voite{" +
+                "dateSet=" + dateSet +
+                '}';
+    }
+}

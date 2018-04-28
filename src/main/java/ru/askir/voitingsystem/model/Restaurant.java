@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
-@Table(name = "restaurant", uniqueConstraints = {@UniqueConstraint(name = "restaurant_name", columnNames = "name")})
+@Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(name = "restaurant_name", columnNames = "name")})
 public class Restaurant extends AbstractBaseEntity {
 
     @Column(name = "name", nullable = false, unique = true)
@@ -20,6 +20,15 @@ public class Restaurant extends AbstractBaseEntity {
 
     public Restaurant(@NotBlank String name) {
         this.name = name;
+    }
+
+    public Restaurant(Integer id, @NotBlank String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Restaurant(Restaurant restaurant) {
+        this(restaurant.getId(), restaurant.getName());
     }
 
     public String getName() {

@@ -1,4 +1,4 @@
-package data;
+package ru.askir.voitingsystem.data;
 
 import ru.askir.voitingsystem.model.Role;
 import ru.askir.voitingsystem.model.User;
