@@ -13,6 +13,7 @@ import static ru.askir.voitingsystem.data.UserTestData.USER;
 import static ru.askir.voitingsystem.data.UserTestData.ADMIN;
 import static ru.askir.voitingsystem.data.MenuTestData.MENU1_1;
 import static ru.askir.voitingsystem.data.MenuTestData.MENU1_2;
+import static ru.askir.voitingsystem.data.MenuTestData.MENU2_2;
 
 public class VoiteTestData {
     public static final int VOITE1_ID = START_SEQ + 12;
@@ -24,7 +25,7 @@ public class VoiteTestData {
     public static final List<Voite> VOITES = Arrays.asList(VOITE1_1);
 
     public static Voite getCreated() {
-        return new Voite(null, ADMIN, MENU1_2, of(2018, Month.APRIL, 8, 10, 15));
+        return new Voite(null, ADMIN, MENU2_2, of(2018, Month.APRIL, 8, 10, 15));
     }
 
     public static Voite getUpdated() {

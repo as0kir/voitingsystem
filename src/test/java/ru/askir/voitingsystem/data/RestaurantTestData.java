@@ -1,11 +1,15 @@
 package ru.askir.voitingsystem.data;
 
+import org.springframework.test.web.servlet.ResultMatcher;
 import ru.askir.voitingsystem.model.Restaurant;
+import ru.askir.voitingsystem.model.User;
 
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static ru.askir.voitingsystem.model.AbstractBaseEntity.START_SEQ;
+import static ru.askir.voitingsystem.web.json.JsonUtil.writeIgnoreProps;
 
 public class RestaurantTestData {
     public static final int RESTAURANT1_ID = START_SEQ + 2;
@@ -26,4 +30,11 @@ public class RestaurantTestData {
         assertThat(actual).usingElementComparatorIgnoringFields("menus").isEqualTo(expected);
     }
 
+    public static ResultMatcher contentJson(Restaurant... expected) {
+        return content().json(writeIgnoreProps(Arrays.asList(expected), "menus"));
+    }
+
+    public static ResultMatcher contentJson(Restaurant expected) {
+        return content().json(writeIgnoreProps(expected, "menus"));
+    }
 }

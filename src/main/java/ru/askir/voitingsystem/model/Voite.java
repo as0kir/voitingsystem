@@ -20,7 +20,8 @@ public class Voite extends AbstractBaseEntity {
     private Menu menu;
 
     @Column(name = "date_set", nullable = false)
-    private @NotBlank LocalDateTime dateSet;
+    @NotNull
+    private LocalDateTime dateSet;
 
     public Voite() {
     }

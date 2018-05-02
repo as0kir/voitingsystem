@@ -15,7 +15,7 @@ public class Menu extends AbstractBaseEntity{
     private Restaurant restaurant;
 
     @Column(name = "date_set", nullable = false)
-    @NotBlank
+    @NotNull
     private LocalDate dateSet;
 
     public Menu() {

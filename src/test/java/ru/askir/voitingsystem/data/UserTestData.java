@@ -1,12 +1,15 @@
 package ru.askir.voitingsystem.data;
 
+import org.springframework.test.web.servlet.ResultMatcher;
 import ru.askir.voitingsystem.model.Role;
 import ru.askir.voitingsystem.model.User;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static ru.askir.voitingsystem.model.AbstractBaseEntity.START_SEQ;
+import static ru.askir.voitingsystem.web.json.JsonUtil.writeIgnoreProps;
 
 public class UserTestData {
     public static final int USER_ID = START_SEQ;
@@ -27,4 +30,11 @@ public class UserTestData {
         assertThat(actual).usingElementComparatorIgnoringFields("registered", "roles").isEqualTo(expected);
     }
 
+    public static ResultMatcher contentJson(User... expected) {
+        return content().json(writeIgnoreProps(Arrays.asList(expected), "registered"));
+    }
+
+    public static ResultMatcher contentJson(User expected) {
+        return content().json(writeIgnoreProps(expected, "registered"));
+    }
 }

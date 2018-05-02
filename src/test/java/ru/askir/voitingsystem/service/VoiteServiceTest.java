@@ -15,6 +15,7 @@ import static ru.askir.voitingsystem.data.VoiteTestData.*;
 import static ru.askir.voitingsystem.data.VoiteTestData.VOITES;
 import static ru.askir.voitingsystem.data.MenuTestData.MENU1_1_ID;
 import static ru.askir.voitingsystem.data.MenuTestData.MENU1_2_ID;
+import static ru.askir.voitingsystem.data.MenuTestData.MENU2_2_ID;
 import static ru.askir.voitingsystem.data.UserTestData.ADMIN_ID;
 import static ru.askir.voitingsystem.data.UserTestData.USER_ID;
 
@@ -30,7 +31,7 @@ public class VoiteServiceTest extends AbstractServiceTest{
     @Test
     public void delete() throws Exception {
         service.delete(VOITE1_ID, USER_ID, MENU1_1_ID);
-        assertMatch(service.getAll(USER_ID, MENU1_1_ID), VOITE1_2);
+        assertMatch(service.getAll(USER_ID, MENU1_1_ID));
     }
 
     @Test
@@ -42,8 +43,8 @@ public class VoiteServiceTest extends AbstractServiceTest{
     @Test
     public void create() throws Exception {
         Voite created = getCreated();
-        service.create(created, USER_ID, MENU1_1_ID);
-        assertMatch(service.getAll(USER_ID, MENU1_1_ID), created, VOITE1_2, VOITE1_1);
+        service.create(created, ADMIN_ID, MENU2_2_ID);
+        assertMatch(service.getAll(ADMIN_ID, MENU2_2_ID), created);
     }
 
     @Test

@@ -1,5 +1,7 @@
 package ru.askir.voitingsystem.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -17,7 +19,7 @@ public class Dish extends AbstractBaseEntity {
     private @NotBlank String name;
 
     @Column(name = "price", nullable = false)
-    private @NotBlank Float price;
+    private @NotNull Float price;
 
     public Dish() {
     }
