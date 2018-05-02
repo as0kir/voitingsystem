@@ -33,3 +33,22 @@
 #### update Restaurant
     curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"4Update"}' http://localhost:8080/voiting-system/rest/restaurants/100003
 
+
+
+### Menu
+
+#### get All menus
+    curl -s http://localhost:8080/voiting-system/rest/restaurants/100002/menus
+
+#### get Menu 100002
+    curl -s http://localhost:8080/voiting-system/rest/restaurants/100002/menus/100004
+
+#### delete Menu
+    curl -s -X DELETE http://localhost:8080/voiting-system/rest/restaurants/100002/menus/100004
+
+#### create Menu
+    curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"dateSet":"2018-04-09"}' http://localhost:8080/voiting-system/rest/restaurants/100002/menus
+
+#### update Menu
+    curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"dateSet":"2018-04-10"}' http://localhost:8080/voiting-system/rest/restaurants/100002/menus/100004
+
