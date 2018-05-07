@@ -4,7 +4,7 @@
     curl -s http://localhost:8080/voiting-system/rest/admin/users
 
 #### get User 100001
-    curl -s http://localhost:8080/voiting-system/rest/admin/users/10001
+    curl -s http://localhost:8080/voiting-system/rest/admin/users/100001
 
 #### delete User
     curl -s -X DELETE http://localhost:8080/voiting-system/rest/admin/users/100001
@@ -52,3 +52,6 @@
 #### update Menu
     curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"dateSet":"2018-04-10"}' http://localhost:8080/voiting-system/rest/restaurants/100002/menus/100004
 
+
+#### Форматированный вывод 
+   | python -m json.tool
