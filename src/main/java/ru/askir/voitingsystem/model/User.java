@@ -31,7 +31,8 @@ public class User extends AbstractBaseEntity {
     private boolean enabled = true;
 
     @Column(name = "registered", columnDefinition = "timestamp default now()")
-    private @NotNull Date registered = new Date();
+    @NotNull
+    private Date registered = new Date();
 
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
@@ -42,7 +43,7 @@ public class User extends AbstractBaseEntity {
     public User() {
     }
 
-    public User(Integer id, @NotBlank String name, @NotBlank String email, @NotBlank String password, boolean enabled, Date registered, Set<Role> roles) {
+    public User(Integer id, String name, String email, String password, boolean enabled, Date registered, Set<Role> roles) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -52,7 +53,7 @@ public class User extends AbstractBaseEntity {
         setRoles(roles);
     }
 
-    public User(Integer id, @NotBlank String name, @NotBlank String email, @NotBlank String password, Role role, Role... roles) {
+    public User(Integer id, String name, String email, String password, Role role, Role... roles) {
         this(id, name, email, password, true, new Date(), EnumSet.of(role, roles));
     }
 
@@ -115,34 +116,5 @@ public class User extends AbstractBaseEntity {
                 ", password='" + password + '\'' +
                 ", roles=" + roles +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        if (!super.equals(o)) return false;
-
-        User user = (User) o;
-
-        if (enabled != user.enabled) return false;
-        if (name != null ? !name.equals(user.name) : user.name != null) return false;
-        if (email != null ? !email.equals(user.email) : user.email != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        if (registered != null ? !registered.equals(user.registered) : user.registered != null) return false;
-        return !(roles != null ? !roles.equals(user.roles) : user.roles != null);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (enabled ? 1 : 0);
-        result = 31 * result + (registered != null ? registered.hashCode() : 0);
-        result = 31 * result + (roles != null ? roles.hashCode() : 0);
-        return result;
     }
 }

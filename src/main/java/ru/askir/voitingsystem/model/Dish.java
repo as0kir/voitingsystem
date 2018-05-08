@@ -16,21 +16,23 @@ public class Dish extends AbstractBaseEntity {
     private Menu menu;
 
     @Column(name = "name", nullable = false)
-    private @NotBlank String name;
+    @NotBlank
+    private String name;
 
     @Column(name = "price", nullable = false)
-    private @NotNull Float price;
+    @NotNull
+    private Float price;
 
     public Dish() {
     }
 
-    public Dish(Integer id, @NotBlank String name, @NotBlank Float price) {
+    public Dish(Integer id, String name, Float price) {
         super(id);
         this.name = name;
         this.price = price;
     }
 
-    public Dish(@NotBlank String name, @NotBlank Float price) {
+    public Dish(String name, Float price) {
         this(null, name, price);
     }
 

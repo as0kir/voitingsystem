@@ -26,14 +26,14 @@ public class Voite extends AbstractBaseEntity {
     public Voite() {
     }
 
-    public Voite(Integer id, @NotBlank User user, @NotBlank Menu menu, LocalDateTime dateSet) {
+    public Voite(Integer id, User user, Menu menu, LocalDateTime dateSet) {
         super(id);
         this.user = user;
         this.menu = menu;
         this.dateSet = dateSet;
     }
 
-    public Voite(@NotBlank User user, @NotBlank Menu menu, LocalDateTime dateSet) {
+    public Voite(User user, Menu menu, LocalDateTime dateSet) {
         this(null, user, menu, dateSet);
     }
 

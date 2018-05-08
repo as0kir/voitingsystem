@@ -18,11 +18,11 @@ public class Restaurant extends AbstractBaseEntity {
     public Restaurant() {
     }
 
-    public Restaurant(@NotBlank String name) {
+    public Restaurant(String name) {
         this.name = name;
     }
 
-    public Restaurant(Integer id, @NotBlank String name) {
+    public Restaurant(Integer id, String name) {
         this.id = id;
         this.name = name;
     }

@@ -25,12 +25,12 @@ public class Menu extends AbstractBaseEntity{
     public Menu() {
     }
 
-    public Menu(Integer id, @NotBlank LocalDate dateSet) {
+    public Menu(Integer id, LocalDate dateSet) {
         super(id);
         this.dateSet = dateSet;
     }
 
-    public Menu(@NotBlank LocalDate dateSet) {
+    public Menu(LocalDate dateSet) {
         this(null, dateSet);
     }
 
@@ -59,28 +59,5 @@ public class Menu extends AbstractBaseEntity{
         return "Menu{" +
                 ", dateSet=" + dateSet +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Menu)) return false;
-        if (!super.equals(o)) return false;
-
-        Menu menu = (Menu) o;
-
-        if (restaurant != null ? !restaurant.equals(menu.restaurant) : menu.restaurant != null) return false;
-        if (dateSet != null ? !dateSet.equals(menu.dateSet) : menu.dateSet != null) return false;
-        return !(dishes != null ? !dishes.equals(menu.dishes) : menu.dishes != null);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (restaurant != null ? restaurant.hashCode() : 0);
-        result = 31 * result + (dateSet != null ? dateSet.hashCode() : 0);
-        result = 31 * result + (dishes != null ? dishes.hashCode() : 0);
-        return result;
     }
 }
