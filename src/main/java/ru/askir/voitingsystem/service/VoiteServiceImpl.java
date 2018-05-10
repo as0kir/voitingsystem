@@ -7,8 +7,10 @@ import ru.askir.voitingsystem.model.Voite;
 import ru.askir.voitingsystem.repository.VoiteRepository;
 import ru.askir.voitingsystem.util.NotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import static ru.askir.voitingsystem.util.ValidationUtil.checkDate;
 import static ru.askir.voitingsystem.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
@@ -22,33 +24,18 @@ public class VoiteServiceImpl implements VoiteService {
     }
 
     @Override
-    public Voite get(int id, int userId, int menuId) throws NotFoundException {
-        return checkNotFoundWithId(repository.get(id, userId, menuId), id);
+    public List<Voite> getAll() {
+        return repository.getAll();
     }
 
     @Override
-    public void delete(int id, int userId, int menuId) throws NotFoundException {
-        checkNotFoundWithId(repository.delete(id, userId, menuId), id);
+    public List<Voite> getAll(LocalDate dateSet) {
+        return repository.getAll(dateSet);
     }
 
     @Override
-    public List<Voite> getAll(int userId, int menuId) {
-        return repository.getAll(userId, menuId);
-    }
-
-    @Override
-    public Voite update(Voite menu, int userId, int menuId) throws NotFoundException {
-        return checkNotFoundWithId(repository.save(menu, userId, menuId), menu.getId());
-    }
-
-    @Override
-    public Voite create(Voite menu, int userId, int menuId) {
-        Assert.notNull(menu, "menu must not be null");
-        return repository.save(menu, userId, menuId);
-    }
-
-    @Override
-    public Voite getWithUserAndMenu(int id, int userId, int menuId) {
-        return checkNotFoundWithId(repository.getWithUserAndMenu(id, userId, menuId), id);
+    public void setVoite(int idUser, int idMenu) {
+        //checkDate()
+        repository.setVoite(idUser, idMenu);
     }
 }

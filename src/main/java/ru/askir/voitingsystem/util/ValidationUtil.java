@@ -2,6 +2,7 @@ package ru.askir.voitingsystem.util;
 
 
 import ru.askir.voitingsystem.model.AbstractBaseEntity;
+import ru.askir.voitingsystem.model.Menu;
 import ru.askir.voitingsystem.util.NotFoundException;
 
 public class ValidationUtil {
@@ -31,6 +32,12 @@ public class ValidationUtil {
     public static void checkNew(AbstractBaseEntity entity) {
         if (!entity.isNew()) {
             throw new IllegalArgumentException(entity + " must be new (id=null)");
+        }
+    }
+
+    public static void checkDate(Menu menu) {
+        if (menu.getDateSet()!=DateUtil.getCurrentDate()) {
+            throw new IllegalArgumentException(menu + " must be in " + DateUtil.getCurrentDate());
         }
     }
 

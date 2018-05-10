@@ -1,10 +1,9 @@
 package ru.askir.voitingsystem.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(name = "dishes_unique_id_menu_name", columnNames = {"id_menu", "name"})})
@@ -20,20 +19,23 @@ public class Dish extends AbstractBaseEntity {
     private String name;
 
     @Column(name = "price", nullable = false)
-    @NotNull
-    private Float price;
+    private @NotNull BigDecimal price;
 
     public Dish() {
     }
 
-    public Dish(Integer id, String name, Float price) {
+    public Dish(Integer id, String name, BigDecimal price) {
         super(id);
         this.name = name;
         this.price = price;
     }
 
-    public Dish(String name, Float price) {
+    public Dish(String name, BigDecimal price) {
         this(null, name, price);
+    }
+
+    public Dish(Dish dish) {
+        this(dish.getId(), dish.getName(), dish.getPrice());
     }
 
     public Menu getMenu() {
@@ -52,11 +54,11 @@ public class Dish extends AbstractBaseEntity {
         this.name = name;
     }
 
-    public Float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
