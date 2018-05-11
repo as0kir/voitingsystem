@@ -9,5 +9,6 @@ import java.util.List;
 public interface VoiteService {
     List<Voite> getAll();
     List<Voite> getAll(LocalDate dateSet);
+    Voite get(int idUser, LocalDate dateSet);
     void setVoite(int idUser, int idMenu);
 }

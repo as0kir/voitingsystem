@@ -38,4 +38,9 @@ public class VoiteServiceImpl implements VoiteService {
         //checkDate()
         repository.setVoite(idUser, idMenu);
     }
+
+    @Override
+    public Voite get(int idUser, LocalDate dateSet) {
+        return repository.get(idUser, dateSet);
+    }
 }

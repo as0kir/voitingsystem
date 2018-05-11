@@ -29,11 +29,11 @@ public interface CrudVoiteRepository extends JpaRepository<Voite, Integer> {
     @Query("SELECT v FROM Voite v WHERE v.user.id=:userId AND v.menu.id=:menuId ORDER BY v.dateSet DESC")
     List<Voite> getAll(@Param("dateSet") LocalDate dateSet);*/
 
-    @Query("SELECT v FROM Voite v WHERE v.user.id = ?1 and v.menu.dateSet = ?2")
-    Voite get(@Param("dateSet") int id_user, @Param("dateSet") LocalDate dateSet);
+    @Query("SELECT v FROM Voite v JOIN FETCH v.menu WHERE v.user.id = :userId and v.menu.dateSet = :dateSet")
+    Voite get(@Param("userId") int userId, @Param("dateSet") LocalDate dateSet);
 
-    @Query("SELECT v FROM Voite v JOIN FETCH v.menu WHERE v.user.id = ?1 and v.menu.dateSet = ?2")
-    void setVoite(int id_user, int id_menu);
+    @Query("SELECT v FROM Voite v JOIN FETCH v.menu WHERE v.user.id = :userId and v.menu.dateSet = :menuId")
+    void setVoite(@Param("userId") int userId,  @Param("menuId") int menuId);
 
     //Voite getAndUser_IdAnd(int id_user);
 }

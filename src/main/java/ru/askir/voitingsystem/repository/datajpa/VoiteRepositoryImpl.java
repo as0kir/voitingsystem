@@ -37,20 +37,29 @@ public class VoiteRepositoryImpl implements VoiteRepository{
 
     @Override
     @Transactional
-    public void setVoite(int idUser, int idMenu) {
-        Voite voite = crudVoiteRepository.get(idUser, DateUtil.getCurrentDate());
+    public void setVoite(int userId, int menuId) {
+        Voite voite = crudVoiteRepository.get(userId, DateUtil.getCurrentDate());
 
         if(voite != null){
-            if(voite.getMenu().getId() != idMenu) {
-                voite.setMenu(crudMenuRepository.getOne(idMenu));
+            if(voite.getMenu().getId() != menuId) {
+                Menu menu = crudMenuRepository.getOne(menuId);
+                if(DateUtil.enableVoite(menu.getDateSet())) {
+                    voite.setMenu(crudMenuRepository.getOne(menuId));
+                    crudVoiteRepository.save(voite);
+                }
             }
         }
         else {
-            Menu menu = crudMenuRepository.getOne(idMenu);
-            if(menu.getDateSet() == DateUtil.getCurrentDate())
-                voite = new Voite(crudUserRepository.getOne(idUser), crudMenuRepository.getOne(idMenu), LocalDateTime.now());
+            Menu menu = crudMenuRepository.getOne(menuId);
+            if(DateUtil.enableVoite(menu.getDateSet())) {
+                voite = new Voite(crudUserRepository.getOne(userId), crudMenuRepository.getOne(menuId), LocalDateTime.now());
+                crudVoiteRepository.save(voite);
+            }
         }
+    }
 
-        //crudVoiteRepository.setVoite(voite);
+    @Override
+    public Voite get(int userId, LocalDate dateSet) {
+        return crudVoiteRepository.get(userId, dateSet);
     }
 }
