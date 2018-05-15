@@ -1,6 +1,5 @@
 package ru.askir.voitingsystem.service;
 
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,15 +8,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.askir.voitingsystem.model.Voite;
-import ru.askir.voitingsystem.model.Voite;
 import ru.askir.voitingsystem.util.DateUtil;
-import ru.askir.voitingsystem.util.NotFoundException;
 
 import static ru.askir.voitingsystem.data.MenuTestData.*;
 import static ru.askir.voitingsystem.data.VoiteTestData.*;
-import static ru.askir.voitingsystem.data.VoiteTestData.VOITES;
-import static ru.askir.voitingsystem.data.UserTestData.ADMIN_ID;
 import static ru.askir.voitingsystem.data.UserTestData.USER_ID;
 
 @RunWith(SpringRunner.class)

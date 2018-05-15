@@ -24,12 +24,12 @@ public class VoiteRestController {
     private VoiteService service;
 
     @GetMapping()
-    public List<Voite> get() {
+    public List<Voite> getAll() {
         return service.getAll();
     }
 
     @GetMapping(value = "/{dateSet}")
-    public List<Voite> get(@PathVariable("dateSet") LocalDate dateSet) {
+    public List<Voite> getAll(@PathVariable("dateSet") LocalDate dateSet) {
         return service.getAll(dateSet);
     }
 

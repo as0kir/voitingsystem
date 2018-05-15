@@ -85,6 +85,10 @@ public class User extends AbstractBaseEntity {
         this.roles = CollectionUtils.isEmpty(roles) ? Collections.<Role>emptySet() : EnumSet.copyOf(roles);
     }
 
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     public String getEmail() {
         return email;
     }

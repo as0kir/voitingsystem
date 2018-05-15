@@ -1,7 +1,7 @@
 package ru.askir.voitingsystem.service;
 
 import ru.askir.voitingsystem.model.Menu;
-import ru.askir.voitingsystem.util.NotFoundException;
+import ru.askir.voitingsystem.util.exception.NotFoundException;
 
 import java.util.List;
 

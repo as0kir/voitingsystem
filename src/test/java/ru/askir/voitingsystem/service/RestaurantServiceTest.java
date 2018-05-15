@@ -8,7 +8,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.askir.voitingsystem.model.Restaurant;
-import ru.askir.voitingsystem.util.NotFoundException;
+import ru.askir.voitingsystem.util.exception.NotFoundException;
 
 import java.util.List;
 

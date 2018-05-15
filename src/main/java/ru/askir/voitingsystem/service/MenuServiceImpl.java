@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.askir.voitingsystem.model.Menu;
 import ru.askir.voitingsystem.repository.MenuRepository;
-import ru.askir.voitingsystem.util.NotFoundException;
+import ru.askir.voitingsystem.util.exception.NotFoundException;
 
 import java.util.List;
 

@@ -1,7 +1,8 @@
 package ru.askir.voitingsystem.service;
 
 import ru.askir.voitingsystem.model.User;
-import ru.askir.voitingsystem.util.NotFoundException;
+import ru.askir.voitingsystem.to.UserTo;
+import ru.askir.voitingsystem.util.exception.NotFoundException;
 
 import java.util.List;
 
@@ -14,5 +15,11 @@ public interface UserService {
 
     void update(User user);
 
+    void update(UserTo user);
+
     List<User> getAll();
+
+    User getByEmail(String email) throws NotFoundException;
+
+    void enable(int id, boolean enable);
 }

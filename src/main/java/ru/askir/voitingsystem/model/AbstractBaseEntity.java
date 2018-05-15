@@ -2,11 +2,13 @@ package ru.askir.voitingsystem.model;
 
 import org.springframework.data.domain.Persistable;
 import org.hibernate.Hibernate;
+import ru.askir.voitingsystem.HasId;
+
 import javax.persistence.*;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
-public class AbstractBaseEntity implements Persistable<Integer> {
+public class AbstractBaseEntity implements HasId {
 
     public static final int START_SEQ = 100000;
 

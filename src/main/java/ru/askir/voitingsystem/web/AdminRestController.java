@@ -1,45 +1,41 @@
 package ru.askir.voitingsystem.web;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.askir.voitingsystem.model.User;
-import ru.askir.voitingsystem.service.UserService;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
-import static ru.askir.voitingsystem.util.ValidationUtil.assureIdConsistent;
-import static ru.askir.voitingsystem.util.ValidationUtil.checkNew;
-
 @RestController
-@RequestMapping(value = AdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class AdminRestController {
+@RequestMapping(AdminRestController.REST_URL)
+public class AdminRestController extends AbstractUserController {
     static final String REST_URL = "/rest/admin/users";
-    private final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    private UserService service;
-
-    @GetMapping()
+    @Override
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getAll() {
-        return service.getAll();
+        return super.getAll();
     }
 
-    @GetMapping(value = "/{id}")
+    @Override
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public User get(@PathVariable("id") int id) {
-        return service.get(id);
+        return super.get(id);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> createWithLocation(@RequestBody User user) {
-        checkNew(user);
-        User created = service.create(user);
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> createWithLocation(@RequestBody @Valid @Validated User user) {
+        User created = super.create(user);
+
+//        HttpHeaders httpHeaders = new HttpHeaders();
+//        httpHeaders.setLocation(uriOfNewResource);
+
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
@@ -47,15 +43,22 @@ public class AdminRestController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
+    @Override
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") int id) {
-        service.delete(id);
+        super.delete(id);
     }
 
+    @Override
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody User user, @PathVariable("id") int id) {
-        assureIdConsistent(user, id);
-        service.update(user);
+    public void update(@RequestBody @Valid @Validated User user, @PathVariable("id") int id) {
+        super.update(user, id);
+    }
+
+    @Override
+    @GetMapping(value = "/by", produces = MediaType.APPLICATION_JSON_VALUE)
+    public User getByMail(@RequestParam("email") String email) {
+        return super.getByMail(email);
     }
 }
