@@ -26,7 +26,7 @@ public class ProfileRestController extends AbstractUserController {
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody UserTo userTo) {
+    public void update(@RequestBody @Valid @Validated UserTo userTo) {
         super.update(userTo, AuthorizedUser.id());
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import ru.askir.voitingsystem.repository.JpaUtil;
+import ru.askir.voitingsystem.service.UserService;
 
 import javax.annotation.PostConstruct;
 
@@ -42,6 +43,9 @@ abstract public class AbstractControllerTest {
 
     @Autowired(required = false)
     private JpaUtil jpaUtil;
+
+    @Autowired
+    protected UserService userService;
 
     @Autowired
     private WebApplicationContext webApplicationContext;

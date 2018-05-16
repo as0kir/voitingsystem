@@ -20,7 +20,7 @@ import static ru.askir.voitingsystem.util.ValidationUtil.checkNew;
 @RestController
 @RequestMapping(value = RestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantRestController {
-    static final String REST_URL = "/rest/restaurants";
+    static final String REST_URL = "/rest/admin/restaurants";
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
