@@ -16,7 +16,8 @@ import static ru.askir.voitingsystem.data.UserTestData.USER_ID;
 
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-@ContextConfiguration({"classpath:spring/spring-context.xml"})
+//@ContextConfiguration({"classpath:spring/spring-context.xml"})
+@ContextConfiguration({"classpath:spring/spring-app.xml", "classpath:spring/spring-db.xml"})
 public class VoiteServiceTest extends AbstractServiceTest{
 
     @Autowired

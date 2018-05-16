@@ -4,6 +4,15 @@
         <resetJUL>true</resetJUL>
     </contextListener>
 
+    <appender name="file" class="ch.qos.logback.core.FileAppender">
+        <file>${VOITINGSYSTEM_ROOT}/log/voitingsystem-tst.log</file>
+
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%date %-5level %logger{50}.%M:%L - %msg%n</pattern>
+        </encoder>
+    </appender>
+
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <charset>UTF-8</charset>
@@ -17,17 +26,22 @@
             <pattern>%magenta(%msg%n)</pattern>
         </encoder>
     </appender>
+
     <logger name="result" level="INFO" additivity="false">
-    <appender-ref ref="result"/>
-</logger>
+        <appender-ref ref="result"/>
+    </logger>
 
     <!--<logger name="org.postgresql" level="debug"/>-->
     <!--<logger name="org.springframework.jdbc" level="debug"/>-->
 
     <logger name="ru.askir.voitingsystem" level="debug"/>
+    <!--<logger name="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver" level="debug"/>-->
+    <logger name="org.springframework.security" level="debug"/>
+    <logger name="org.springframework.web.filter.DelegatingFilterProxy" level="debug"/>
 
-    <root level="INFO">
+    <root level="info">
         <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
     </root>
 
 </configuration>
