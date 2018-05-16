@@ -19,7 +19,7 @@ public class RestaurantTestData {
     public static final Restaurant RESTAURANT2 = new Restaurant(RESTAURANT2_ID, "2Шашлык");
 
     public static void assertMatch(Restaurant actual, Restaurant expected) {
-        assertThat(actual).isEqualToIgnoringGivenFields(expected, "menus");
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, "menu");
     }
 
     public static void assertMatch(Iterable<Restaurant> actual, Restaurant... expected) {
@@ -27,14 +27,14 @@ public class RestaurantTestData {
     }
 
     public static void assertMatch(Iterable<Restaurant> actual, Iterable<Restaurant> expected) {
-        assertThat(actual).usingElementComparatorIgnoringFields("menus").isEqualTo(expected);
+        assertThat(actual).usingElementComparatorIgnoringFields("menu").isEqualTo(expected);
     }
 
     public static ResultMatcher contentJson(Restaurant... expected) {
-        return content().json(writeIgnoreProps(Arrays.asList(expected), "menus"));
+        return content().json(writeIgnoreProps(Arrays.asList(expected), "menu"));
     }
 
     public static ResultMatcher contentJson(Restaurant expected) {
-        return content().json(writeIgnoreProps(expected, "menus"));
+        return content().json(writeIgnoreProps(expected, "menu"));
     }
 }

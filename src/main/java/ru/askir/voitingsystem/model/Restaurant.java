@@ -13,7 +13,7 @@ public class Restaurant extends AbstractBaseEntity {
     private String name;
 
     @OneToMany(mappedBy = "restaurant")
-    private List<Menu> menus;
+    private List<Menu> menu;
 
     public Restaurant() {
     }
