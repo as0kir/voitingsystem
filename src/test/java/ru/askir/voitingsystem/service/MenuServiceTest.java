@@ -48,9 +48,21 @@ public class MenuServiceTest extends AbstractServiceTest {
     }
 
     @Test
+    public void getByDateSet() throws Exception {
+        Menu actual = service.getByDateSet(MENU1_1.getDateSet(), RESTAURANT1_ID);
+        assertMatch(actual, MENU1_1);
+    }
+
+    @Test
     public void getNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
         service.get(MENU1_1_ID, RESTAURANT2_ID);
+    }
+
+    @Test
+    public void getByDateSetNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
+        Menu actual = service.getByDateSet(MENU1_1.getDateSet().plusYears(1), RESTAURANT1_ID);
     }
 
     @Test

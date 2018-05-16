@@ -7,8 +7,10 @@ import ru.askir.voitingsystem.model.Menu;
 import ru.askir.voitingsystem.repository.MenuRepository;
 import ru.askir.voitingsystem.util.exception.NotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import static ru.askir.voitingsystem.util.ValidationUtil.checkNotFound;
 import static ru.askir.voitingsystem.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
@@ -24,6 +26,11 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public Menu get(int id, int restaurantId) throws NotFoundException {
         return checkNotFoundWithId(repository.get(id, restaurantId), id);
+    }
+
+    @Override
+    public Menu getByDateSet(LocalDate dateSet, int restaurantId) throws NotFoundException {
+        return checkNotFound(repository.getByDateSet(dateSet, restaurantId), "dateSet = " + dateSet);
     }
 
     @Override

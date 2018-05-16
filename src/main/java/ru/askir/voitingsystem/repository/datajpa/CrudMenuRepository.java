@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ru.askir.voitingsystem.model.Menu;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,4 +28,5 @@ public interface CrudMenuRepository extends JpaRepository<Menu, Integer>{
     @Query("SELECT m FROM Menu m JOIN FETCH m.restaurant WHERE m.id = ?1 and m.restaurant.id = ?2")
     Menu getWithRestaurant(int id, int restaurantId);
 
+    Menu DateSetEqualsAndRestaurant_IdEquals(LocalDate dateSet, int restaurantId);
 }
