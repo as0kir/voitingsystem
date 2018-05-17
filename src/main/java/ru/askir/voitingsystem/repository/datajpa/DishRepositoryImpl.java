@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.askir.voitingsystem.model.Dish;
 import ru.askir.voitingsystem.repository.DishRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -22,7 +23,7 @@ public class DishRepositoryImpl implements DishRepository {
     @Override
     @Transactional
     public Dish save(Dish dish, int menuId) {
-        if (!dish.isNew() && get(dish.getId(), menuId) == null) {
+        if (!dish.isNew() && get(dish.getId()) == null) {
             return null;
         }
         dish.setMenu(crudMenuRepository.getOne(menuId));
@@ -30,18 +31,23 @@ public class DishRepositoryImpl implements DishRepository {
     }
 
     @Override
-    public boolean delete(int id, int menuId) {
-        return crudDishRepository.delete(id, menuId) != 0;
+    public boolean delete(int id) {
+        return crudDishRepository.delete(id) != 0;
     }
 
     @Override
-    public Dish get(int id, int menuId) {
-        return crudDishRepository.findById(id).filter(dish -> dish.getMenu().getId() == menuId).orElse(null);
+    public Dish get(int id) {
+        return crudDishRepository.findById(id).orElse(null);
     }
 
     @Override
     public List<Dish> getAll(int menuId) {
         return crudDishRepository.getAll(menuId);
+    }
+
+    @Override
+    public List<Dish> getAll(int restaurantId, LocalDate dateSet) {
+        return crudDishRepository.getAll(restaurantId, dateSet);
     }
 
     @Override

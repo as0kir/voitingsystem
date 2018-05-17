@@ -20,6 +20,7 @@ import static ru.askir.voitingsystem.TestUtil.readFromJson;
 
 import static ru.askir.voitingsystem.TestUtil.userHttpBasic;
 import static ru.askir.voitingsystem.data.DishTestData.*;
+import static ru.askir.voitingsystem.data.MenuTestData.MENU1_1;
 import static ru.askir.voitingsystem.data.RestaurantTestData.RESTAURANT1_ID;
 import static ru.askir.voitingsystem.data.MenuTestData.MENU1_1_ID;
 import static ru.askir.voitingsystem.data.UserTestData.ADMIN;
@@ -33,7 +34,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGet() throws Exception {
-        mockMvc.perform(get(REST_URL + DISH1_ID, RESTAURANT1_ID, MENU1_1_ID)
+        mockMvc.perform(get(REST_URL + DISH1_ID, RESTAURANT1_ID, MENU1_1.getDateSet())
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -44,7 +45,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testDelete() throws Exception {
-        mockMvc.perform(delete(REST_URL + DISH1_ID, RESTAURANT1_ID, MENU1_1_ID)
+        mockMvc.perform(delete(REST_URL + DISH1_ID, RESTAURANT1_ID, MENU1_1.getDateSet())
                 .with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
@@ -55,19 +56,19 @@ public class DishRestControllerTest extends AbstractControllerTest {
     public void testUpdate() throws Exception {
         Dish updated = new Dish(DISH1_1);
         updated.setPrice(new BigDecimal(100));
-        mockMvc.perform(put(REST_URL + DISH1_ID, RESTAURANT1_ID, MENU1_1_ID)
+        mockMvc.perform(put(REST_URL + DISH1_ID, RESTAURANT1_ID, MENU1_1.getDateSet())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated))
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk());
 
-        assertMatch(dishService.get(DISH1_ID, MENU1_1_ID), updated);
+        assertMatch(dishService.get(DISH1_ID), updated);
     }
 
     @Test
     public void testCreate() throws Exception {
         Dish expected = getCreated();
-        ResultActions action = mockMvc.perform(post(REST_URL, RESTAURANT1_ID, MENU1_1_ID)
+        ResultActions action = mockMvc.perform(post(REST_URL, RESTAURANT1_ID, MENU1_1.getDateSet())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(expected))
                 .with(userHttpBasic(ADMIN)))
@@ -88,4 +89,34 @@ public class DishRestControllerTest extends AbstractControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(contentJson(DISH1_1, DISH1_2, DISH1_3)));
     }
+
+    @Test
+    public void testGetAllByDateSet() throws Exception {
+        TestUtil.print(mockMvc.perform(get(REST_URL, RESTAURANT1_ID, MENU1_1.getDateSet())
+                .with(userHttpBasic(ADMIN)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(contentJson(DISH1_1, DISH1_2, DISH1_3)));
+    }
+
+    @Test
+    public void testGetAllByDateSetEmpty() throws Exception {
+        TestUtil.print(mockMvc.perform(get(REST_URL, RESTAURANT1_ID, MENU1_1.getDateSet().plusYears(1))
+                .with(userHttpBasic(ADMIN)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(contentJson()));
+    }
+
+    @Test
+    public void testGetByDateSet() throws Exception {
+        mockMvc.perform(get(REST_URL + DISH1_ID, RESTAURANT1_ID, MENU1_1.getDateSet())
+                .with(userHttpBasic(ADMIN)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                        // https://jira.spring.io/browse/SPR-14472
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(contentJson(DISH1_1));
+    }
+
 }

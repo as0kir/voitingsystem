@@ -7,6 +7,7 @@ import ru.askir.voitingsystem.model.Dish;
 import ru.askir.voitingsystem.repository.DishRepository;
 import ru.askir.voitingsystem.util.exception.NotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static ru.askir.voitingsystem.util.ValidationUtil.checkNotFoundWithId;
@@ -21,18 +22,23 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public Dish get(int id, int menuId) throws NotFoundException {
-        return checkNotFoundWithId(repository.get(id, menuId), id);
+    public Dish get(int id) throws NotFoundException {
+        return checkNotFoundWithId(repository.get(id), id);
     }
 
     @Override
-    public void delete(int id, int menuId) throws NotFoundException {
-        checkNotFoundWithId(repository.delete(id, menuId), id);
+    public void delete(int id) throws NotFoundException {
+        checkNotFoundWithId(repository.delete(id), id);
     }
 
     @Override
     public List<Dish> getAll(int menuId) {
         return repository.getAll(menuId);
+    }
+
+    @Override
+    public List<Dish> getAll(int restaurantId, LocalDate dateSet) {
+        return repository.getAll(restaurantId, dateSet);
     }
 
     @Override

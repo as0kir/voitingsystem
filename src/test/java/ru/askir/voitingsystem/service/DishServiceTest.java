@@ -25,14 +25,14 @@ public class DishServiceTest extends AbstractServiceTest {
 
     @Test
     public void delete() throws Exception {
-        service.delete(DISH1_ID, MENU1_1_ID);
+        service.delete(DISH1_ID);
         assertMatch(service.getAll(MENU1_1_ID), DISH1_2, DISH1_3);
     }
 
     @Test
     public void deleteNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
-        service.delete(DISH1_ID, 1);
+        service.delete(DISH1_ID+1000);
     }
 
     @Test
@@ -44,21 +44,21 @@ public class DishServiceTest extends AbstractServiceTest {
 
     @Test
     public void get() throws Exception {
-        Dish actual = service.get(DISH1_ID, MENU1_1_ID);
+        Dish actual = service.get(DISH1_ID);
         assertMatch(actual, DISH1_1);
     }
 
     @Test
     public void getNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
-        service.get(DISH1_ID, MENU1_2_ID);
+        service.get(DISH1_ID+1000);
     }
 
     @Test
     public void update() throws Exception {
         Dish updated = getUpdated();
         service.update(updated, MENU1_1_ID);
-        assertMatch(service.get(DISH1_ID, MENU1_1_ID), updated);
+        assertMatch(service.get(DISH1_ID), updated);
     }
 
     @Test

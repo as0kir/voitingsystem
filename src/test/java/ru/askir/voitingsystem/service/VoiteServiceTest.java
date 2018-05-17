@@ -8,7 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.askir.voitingsystem.util.DateUtil;
+import ru.askir.voitingsystem.util.DateTimeUtil;
 
 import static ru.askir.voitingsystem.data.MenuTestData.*;
 import static ru.askir.voitingsystem.data.VoiteTestData.*;
@@ -25,12 +25,12 @@ public class VoiteServiceTest extends AbstractServiceTest{
 
     @BeforeClass
     public static void before(){
-        DateUtil.setMockDate(null);
+        DateTimeUtil.setMockDate(null);
     }
 
     @Test
     public void setVoite() throws Exception {
-        DateUtil.setMockDate(rightDate);
+        DateTimeUtil.setMockDate(rightDate);
         service.setVoite(USER_ID, MENU2_1_ID);
         assertMatch(service.get(USER_ID, rightDate.toLocalDate()), getVoited());
     }

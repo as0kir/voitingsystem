@@ -12,6 +12,7 @@ import ru.askir.voitingsystem.model.Dish;
 import ru.askir.voitingsystem.service.DishService;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 import static ru.askir.voitingsystem.util.ValidationUtil.assureIdConsistent;
@@ -20,20 +21,20 @@ import static ru.askir.voitingsystem.util.ValidationUtil.checkNew;
 @RestController
 @RequestMapping(value = DishRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class DishRestController {
-    static final String REST_URL = MenuRestController.REST_URL + "{date_set}/dishes";
+    static final String REST_URL = MenuRestController.REST_URL + "/{date_set}/dishes";
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private DishService service;
 
     @GetMapping()
-    public List<Dish> getAll(@PathVariable("menu_id") int menu_id) {
-        return service.getAll(menu_id);
+    public List<Dish> getAll(@PathVariable("restaurant_id") int restaurantId, @PathVariable("date_set") LocalDate dateSet) {
+        return service.getAll(restaurantId, dateSet);
     }
 
     @GetMapping(value = "/{id}")
-    public Dish get(@PathVariable("menu_id") int menu_id, @PathVariable("id") int id) {
-        return service.get(id, menu_id);
+    public Dish get(@PathVariable("restaurant_id") int restaurantId, @PathVariable("date_set") LocalDate dateSet, @PathVariable("id") int id) {
+        return service.get(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -50,7 +51,7 @@ public class DishRestController {
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("menu_id") int menu_id, @PathVariable("id") int id) {
-        service.delete(id, menu_id);
+        service.delete(id);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)

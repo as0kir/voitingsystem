@@ -1,10 +1,16 @@
 package ru.askir.voitingsystem.util;
 
+import org.springframework.util.StringUtils;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
-public class DateUtil {
+public class DateTimeUtil {
+
+    public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm";
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
 
     private static LocalTime beginTime = LocalTime.of(00, 00);
     private static LocalTime endTime = LocalTime.of(11, 00);
@@ -15,7 +21,7 @@ public class DateUtil {
     }
 
     public static void setMockDate(LocalDateTime mockDate) {
-        DateUtil.mockDate = mockDate;
+        DateTimeUtil.mockDate = mockDate;
     }
 
     public static boolean enableVoite(LocalDate checkedDate) {
@@ -41,5 +47,17 @@ public class DateUtil {
             return LocalTime.now();
         else
             return mockDate.toLocalTime();
+    }
+
+    public static String toString(LocalDateTime ldt) {
+        return ldt == null ? "" : ldt.format(DATE_TIME_FORMATTER);
+    }
+
+    public static LocalDate parseLocalDate(String str) {
+        return StringUtils.isEmpty(str) ? null : LocalDate.parse(str);
+    }
+
+    public static LocalTime parseLocalTime(String str) {
+        return StringUtils.isEmpty(str) ? null : LocalTime.parse(str);
     }
 }

@@ -1,13 +1,12 @@
 package ru.askir.voitingsystem.repository.datajpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.askir.voitingsystem.model.Menu;
 import ru.askir.voitingsystem.model.Voite;
 import ru.askir.voitingsystem.repository.VoiteRepository;
-import ru.askir.voitingsystem.util.DateUtil;
+import ru.askir.voitingsystem.util.DateTimeUtil;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -38,12 +37,12 @@ public class VoiteRepositoryImpl implements VoiteRepository{
     @Override
     @Transactional
     public void setVoite(int userId, int menuId) {
-        Voite voite = crudVoiteRepository.get(userId, DateUtil.getCurrentDate());
+        Voite voite = crudVoiteRepository.get(userId, DateTimeUtil.getCurrentDate());
 
         if(voite != null){
             if(voite.getMenu().getId() != menuId) {
                 Menu menu = crudMenuRepository.getOne(menuId);
-                if(DateUtil.enableVoite(menu.getDateSet())) {
+                if(DateTimeUtil.enableVoite(menu.getDateSet())) {
                     voite.setMenu(crudMenuRepository.getOne(menuId));
                     crudVoiteRepository.save(voite);
                 }
@@ -51,7 +50,7 @@ public class VoiteRepositoryImpl implements VoiteRepository{
         }
         else {
             Menu menu = crudMenuRepository.getOne(menuId);
-            if(DateUtil.enableVoite(menu.getDateSet())) {
+            if(DateTimeUtil.enableVoite(menu.getDateSet())) {
                 voite = new Voite(crudUserRepository.getOne(userId), crudMenuRepository.getOne(menuId), LocalDateTime.now());
                 crudVoiteRepository.save(voite);
             }
