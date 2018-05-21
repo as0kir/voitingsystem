@@ -118,5 +118,4 @@ public class DishRestControllerTest extends AbstractControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(contentJson(DISH1_1));
     }
-
 }

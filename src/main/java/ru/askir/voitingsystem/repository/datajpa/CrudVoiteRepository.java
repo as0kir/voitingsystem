@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-import ru.askir.voitingsystem.model.Dish;
 import ru.askir.voitingsystem.model.Voite;
 
 import java.time.LocalDate;
@@ -23,17 +22,10 @@ public interface CrudVoiteRepository extends JpaRepository<Voite, Integer> {
     @Transactional
     Voite save(Voite item);
 
-    /*@Query("SELECT v FROM Voite v WHERE v.user.id=:userId AND v.menu.id=:menuId ORDER BY v.dateSet DESC")
-    List<Voite> getAll();
-
-    @Query("SELECT v FROM Voite v WHERE v.user.id=:userId AND v.menu.id=:menuId ORDER BY v.dateSet DESC")
-    List<Voite> getAll(@Param("dateSet") LocalDate dateSet);*/
+    @Query("SELECT v FROM Voite v WHERE v.menu.dateSet=:dateSet ORDER BY v.dateSet DESC")
+    List<Voite> getAll(@Param("dateSet") LocalDate dateSet);
 
     @Query("SELECT v FROM Voite v JOIN FETCH v.menu WHERE v.user.id = :userId and v.menu.dateSet = :dateSet")
     Voite get(@Param("userId") int userId, @Param("dateSet") LocalDate dateSet);
 
-    @Query("SELECT v FROM Voite v JOIN FETCH v.menu WHERE v.user.id = :userId and v.menu.dateSet = :menuId")
-    void setVoite(@Param("userId") int userId,  @Param("menuId") int menuId);
-
-    //Voite getAndUser_IdAnd(int id_user);
 }

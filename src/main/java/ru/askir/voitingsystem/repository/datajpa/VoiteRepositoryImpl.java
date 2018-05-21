@@ -26,12 +26,12 @@ public class VoiteRepositoryImpl implements VoiteRepository{
 
     @Override
     public List<Voite> getAll() {
-        return null; // crudVoiteRepository.getAll();
+        return crudVoiteRepository.getAll(DateTimeUtil.getCurrentDate());
     }
 
     @Override
     public List<Voite> getAll(LocalDate dateSet) {
-        return null; //crudVoiteRepository.getAll(dateSet);
+        return crudVoiteRepository.getAll(dateSet);
     }
 
     @Override

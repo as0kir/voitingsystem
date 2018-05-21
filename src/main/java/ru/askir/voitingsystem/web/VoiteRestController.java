@@ -16,20 +16,19 @@ import java.util.List;
 @RequestMapping(value = VoiteRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class VoiteRestController {
 
-    //static final String REST_URL = MenuRestController.REST_URL + "/{menu_id}/voites";
     static final String REST_URL = "/rest/voites";
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private VoiteService service;
 
-    @GetMapping()
+    @GetMapping
     public List<Voite> getAll() {
         return service.getAll();
     }
 
     @GetMapping(value = "/{dateSet}")
-    public List<Voite> getAll(@PathVariable("dateSet") LocalDate dateSet) {
+    public List<Voite> getAllForDateSet(@PathVariable("dateSet") LocalDate dateSet) {
         return service.getAll(dateSet);
     }
 
@@ -39,6 +38,4 @@ public class VoiteRestController {
         int idUser = AuthorizedUser.id();
         service.setVoite(idUser, idMenu);
     }
-
-
 }
