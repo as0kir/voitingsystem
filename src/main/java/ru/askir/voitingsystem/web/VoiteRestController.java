@@ -39,4 +39,6 @@ public class VoiteRestController {
         int idUser = AuthorizedUser.id();
         service.setVoite(idUser, idMenu);
     }
+
+
 }

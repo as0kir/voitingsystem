@@ -38,25 +38,25 @@ public class DishRestController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Dish> createWithLocation(@RequestBody Dish dish, @PathVariable("restaurant_id") int restaurant_id, @PathVariable("menu_id") int menu_id) {
+    public ResponseEntity<Dish> createWithLocation(@RequestBody Dish dish, @PathVariable("restaurant_id") int restaurant_id, @PathVariable("date_set") LocalDate dateSet) {
         checkNew(dish);
-        Dish created = service.create(dish, menu_id);
+        Dish created = service.create(dish, restaurant_id, dateSet);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
-                .buildAndExpand(restaurant_id, menu_id, created.getId()).toUri();
+                .buildAndExpand(restaurant_id, dateSet, created.getId()).toUri();
 
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("menu_id") int menu_id, @PathVariable("id") int id) {
+    public void delete(@PathVariable("id") int id) {
         service.delete(id);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody Dish dish, @PathVariable("menu_id") int menu_id, @PathVariable("id") int id) {
+    public void update(@RequestBody Dish dish, @PathVariable("restaurant_id") int restaurant_id, @PathVariable("date_set") LocalDate dateSet, @PathVariable("id") int id) {
         assureIdConsistent(dish, id);
-        service.update(dish, menu_id);
+        service.update(dish, restaurant_id, dateSet);
     }    
 }

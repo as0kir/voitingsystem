@@ -1,4 +1,4 @@
-package ru.askir.voitingsystem.web;
+package ru.askir.voitingsystem.web.handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

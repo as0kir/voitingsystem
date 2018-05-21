@@ -31,6 +31,15 @@ public class DishRepositoryImpl implements DishRepository {
     }
 
     @Override
+    public Dish save(Dish dish, int restaurantId, LocalDate dateSet) {
+        if (!dish.isNew() && get(dish.getId()) == null) {
+            return null;
+        }
+        dish.setMenu(crudMenuRepository.DateSetEqualsAndRestaurant_IdEquals(dateSet, restaurantId));
+        return crudDishRepository.save(dish);
+    }
+
+    @Override
     public boolean delete(int id) {
         return crudDishRepository.delete(id) != 0;
     }

@@ -8,6 +8,8 @@ import java.util.List;
 public interface DishRepository {
     Dish save(Dish dish, int menuId);
 
+    Dish save(Dish dish, int restaurantId, LocalDate dateSet);
+
     boolean delete(int id);
 
     Dish get(int id);

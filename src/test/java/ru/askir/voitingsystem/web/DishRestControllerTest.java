@@ -83,7 +83,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetAll() throws Exception {
-        TestUtil.print(mockMvc.perform(get(REST_URL, RESTAURANT1_ID, MENU1_1_ID)
+        TestUtil.print(mockMvc.perform(get(REST_URL, RESTAURANT1_ID, MENU1_1.getDateSet())
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

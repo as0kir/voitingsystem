@@ -15,9 +15,13 @@ public interface DishService {
 
     List<Dish> getAll(int restaurantId, LocalDate dateSet);
 
-    Dish update(Dish menu, int menuId) throws NotFoundException;
+    Dish update(Dish dish, int menuId) throws NotFoundException;
 
-    Dish create(Dish menu, int menuId);
+    Dish update(Dish dish, int restaurantId, LocalDate dateSet) throws NotFoundException;
+
+    Dish create(Dish dish, int menuId);
+
+    Dish create(Dish dish, int restaurantId, LocalDate dateSet);
 
     Dish getWithMenu(int id, int menuId);
 }
