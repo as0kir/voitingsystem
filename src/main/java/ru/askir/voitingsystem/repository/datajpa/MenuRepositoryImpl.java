@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.askir.voitingsystem.model.Menu;
 import ru.askir.voitingsystem.repository.MenuRepository;
+import ru.askir.voitingsystem.to.MenuTo;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -54,5 +55,10 @@ public class MenuRepositoryImpl implements MenuRepository {
     @Override
     public Menu getWithResraurant(int id, int restaurantId) {
         return crudMenuRepository.getWithRestaurant(id, restaurantId);
+    }
+
+    @Override
+    public List<MenuTo> getAllWithVoites(LocalDate dateSet) {
+        return crudMenuRepository.getAllWithVoites(dateSet);
     }
 }

@@ -1,6 +1,7 @@
 package ru.askir.voitingsystem.repository;
 
 import ru.askir.voitingsystem.model.Menu;
+import ru.askir.voitingsystem.to.MenuTo;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,4 +20,6 @@ public interface MenuRepository {
     default Menu getWithResraurant(int id, int restaurantId) {
         throw new UnsupportedOperationException();
     }
+
+    List<MenuTo> getAllWithVoites(LocalDate dateSet);
 }

@@ -60,6 +60,11 @@ public class DishRepositoryImpl implements DishRepository {
     }
 
     @Override
+    public List<Dish> getAll(LocalDate dateSet) {
+        return crudDishRepository.getAll(dateSet);
+    }
+
+    @Override
     public Dish getWithMenu(int id, int menuId) {
         return crudDishRepository.getWithMenu(id, menuId);
     }

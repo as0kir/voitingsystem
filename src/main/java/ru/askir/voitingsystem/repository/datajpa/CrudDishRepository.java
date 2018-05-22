@@ -28,6 +28,11 @@ public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
     @Query("SELECT d FROM Dish d WHERE d.menu.restaurant.id=:restaurantId and d.menu.dateSet=:dateSet ORDER BY d.name ASC")
     List<Dish> getAll(@Param("restaurantId") int restaurantId, @Param("dateSet") LocalDate dateSet);
 
+    @Query("SELECT d FROM Dish d WHERE d.menu.dateSet=:dateSet ORDER BY d.menu.id ASC")
+    List<Dish> getAll(@Param("dateSet") LocalDate dateSet);
+
     @Query("SELECT d FROM Dish d JOIN FETCH d.menu WHERE d.id = ?1 and d.menu.id = ?2")
     Dish getWithMenu(int id, int menuId);
+
+
 }

@@ -1,6 +1,7 @@
 package ru.askir.voitingsystem.service;
 
 import ru.askir.voitingsystem.model.Menu;
+import ru.askir.voitingsystem.to.MenuTo;
 import ru.askir.voitingsystem.util.exception.NotFoundException;
 
 import java.time.LocalDate;
@@ -20,4 +21,8 @@ public interface MenuService {
     Menu create(Menu menu, int restaurantId);
 
     Menu getWithRestaurant(int id, int restaurantId);
+
+    List<MenuTo> getAllWithVoites(LocalDate dateSet);
+
+    List<MenuTo> getAllWithVoites();
 }

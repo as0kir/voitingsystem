@@ -22,6 +22,9 @@ public class Menu extends AbstractBaseEntity{
     @OneToMany(mappedBy = "menu")
     private List<Dish> dishes;
 
+    @OneToMany(mappedBy = "menu")
+    private List<Voite> voites;
+
     public Menu() {
     }
 

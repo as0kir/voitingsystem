@@ -18,6 +18,8 @@ public interface DishRepository {
 
     List<Dish> getAll(int restaurantId, LocalDate dateSet);
 
+    List<Dish> getAll(LocalDate dateSet);
+
     default Dish getWithMenu(int id, int menuId) {
         throw new UnsupportedOperationException();
     }    

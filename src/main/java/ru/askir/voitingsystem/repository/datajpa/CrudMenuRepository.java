@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ru.askir.voitingsystem.model.Menu;
+import ru.askir.voitingsystem.to.MenuTo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,4 +30,7 @@ public interface CrudMenuRepository extends JpaRepository<Menu, Integer>{
     Menu getWithRestaurant(int id, int restaurantId);
 
     Menu DateSetEqualsAndRestaurant_IdEquals(LocalDate dateSet, int restaurantId);
+
+    @Query("SELECT new ru.askir.voitingsystem.to.MenuTo(m.restaurant.id, m.restaurant.name, m.id, m.voites.size) from Menu m where m.dateSet =:dateSet")
+    List<MenuTo> getAllWithVoites(@Param("dateSet") LocalDate dateSet);
 }

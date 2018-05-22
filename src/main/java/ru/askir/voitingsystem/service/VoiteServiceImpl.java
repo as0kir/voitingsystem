@@ -32,7 +32,6 @@ public class VoiteServiceImpl implements VoiteService {
 
     @Override
     public void setVoite(int idUser, int idMenu) {
-        //checkDate()
         repository.setVoite(idUser, idMenu);
     }
 

@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.askir.voitingsystem.model.Voite;
+import ru.askir.voitingsystem.service.MenuService;
 import ru.askir.voitingsystem.service.VoiteService;
+import ru.askir.voitingsystem.to.MenuTo;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,22 +22,25 @@ public class VoiteRestController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private VoiteService service;
+    private VoiteService voiteService;
+
+    @Autowired
+    private MenuService menuService;
 
     @GetMapping
-    public List<Voite> getAll() {
-        return service.getAll();
+    public List<MenuTo> getAll() {
+        return menuService.getAllWithVoites();
     }
 
     @GetMapping(value = "/{dateSet}")
-    public List<Voite> getAllForDateSet(@PathVariable("dateSet") LocalDate dateSet) {
-        return service.getAll(dateSet);
+    public List<MenuTo> getAllForDateSet(@PathVariable("dateSet") LocalDate dateSet) {
+        return menuService.getAllWithVoites(dateSet);
     }
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void setVoite(@RequestParam int idMenu) {
         int idUser = AuthorizedUser.id();
-        service.setVoite(idUser, idMenu);
+        voiteService.setVoite(idUser, idMenu);
     }
 }
