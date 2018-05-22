@@ -59,7 +59,7 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public Menu create(Menu menu, int restaurantId) {
         Assert.notNull(menu, "menu must not be null");
-        return menuRepository.save(menu, restaurantId);
+        return checkNotFound(menuRepository.save(menu, restaurantId), "restaurantId = " + restaurantId);
     }
 
     @Override

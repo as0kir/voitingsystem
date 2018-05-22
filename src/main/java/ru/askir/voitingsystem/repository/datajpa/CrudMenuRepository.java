@@ -29,7 +29,11 @@ public interface CrudMenuRepository extends JpaRepository<Menu, Integer>{
     @Query("SELECT m FROM Menu m JOIN FETCH m.restaurant WHERE m.id = ?1 and m.restaurant.id = ?2")
     Menu getWithRestaurant(int id, int restaurantId);
 
-    Menu DateSetEqualsAndRestaurant_IdEquals(LocalDate dateSet, int restaurantId);
+
+    @Query("SELECT m FROM Menu m WHERE m.restaurant.id = ?1 and m.dateSet = ?2")
+    Menu get(int restaurantId, LocalDate dateSet);
+
+    //Menu DateSetEqualsAndRestaurant_IdEquals(LocalDate dateSet, int restaurantId);
 
     @Query("SELECT new ru.askir.voitingsystem.to.MenuTo(m.restaurant.id, m.restaurant.name, m.id, m.voites.size) from Menu m where m.dateSet =:dateSet")
     List<MenuTo> getAllWithVoites(@Param("dateSet") LocalDate dateSet);

@@ -10,8 +10,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import ru.askir.voitingsystem.model.Menu;
 import ru.askir.voitingsystem.util.exception.NotFoundException;
 
+import static ru.askir.voitingsystem.data.CommonTestData.WRONG_DATE;
 import static ru.askir.voitingsystem.data.MenuTestData.*;
 import static ru.askir.voitingsystem.data.RestaurantTestData.*;
+import static ru.askir.voitingsystem.data.CommonTestData.WRONG_ID;
 
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
@@ -42,14 +44,15 @@ public class MenuServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void get() throws Exception {
-        Menu actual = service.get(MENU1_1_ID, RESTAURANT1_ID);
-        assertMatch(actual, MENU1_1);
+    public void createNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
+        Menu created = getCreated();
+        service.create(created, WRONG_ID);
     }
 
     @Test
-    public void getByDateSet() throws Exception {
-        Menu actual = service.getByDateSet(MENU1_1.getDateSet(), RESTAURANT1_ID);
+    public void get() throws Exception {
+        Menu actual = service.get(MENU1_1_ID, RESTAURANT1_ID);
         assertMatch(actual, MENU1_1);
     }
 
@@ -60,9 +63,15 @@ public class MenuServiceTest extends AbstractServiceTest {
     }
 
     @Test
+    public void getByDateSet() throws Exception {
+        Menu actual = service.getByDateSet(MENU1_1.getDateSet(), RESTAURANT1_ID);
+        assertMatch(actual, MENU1_1);
+    }
+
+    @Test
     public void getByDateSetNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
-        Menu actual = service.getByDateSet(MENU1_1.getDateSet().plusYears(1), RESTAURANT1_ID);
+        Menu actual = service.getByDateSet(WRONG_DATE, RESTAURANT1_ID);
     }
 
     @Test

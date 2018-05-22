@@ -5,6 +5,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.askir.voitingsystem.model.Dish;
+import ru.askir.voitingsystem.model.Menu;
 import ru.askir.voitingsystem.repository.DishRepository;
 
 import java.time.LocalDate;
@@ -26,7 +27,12 @@ public class DishRepositoryImpl implements DishRepository {
         if (!dish.isNew() && get(dish.getId()) == null) {
             return null;
         }
-        dish.setMenu(crudMenuRepository.getOne(menuId));
+
+        Menu menu = crudMenuRepository.findById(menuId).orElse(null);
+        if(menu == null) {
+            return null;
+        }
+        dish.setMenu(menu);
         return crudDishRepository.save(dish);
     }
 
@@ -35,7 +41,12 @@ public class DishRepositoryImpl implements DishRepository {
         if (!dish.isNew() && get(dish.getId()) == null) {
             return null;
         }
-        dish.setMenu(crudMenuRepository.DateSetEqualsAndRestaurant_IdEquals(dateSet, restaurantId));
+        Menu menu = crudMenuRepository.get(restaurantId, dateSet);
+        if(menu == null) {
+            return null;
+        }
+
+        dish.setMenu(menu);
         return crudDishRepository.save(dish);
     }
 

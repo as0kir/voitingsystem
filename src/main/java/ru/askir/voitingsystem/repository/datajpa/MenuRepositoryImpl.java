@@ -5,6 +5,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.askir.voitingsystem.model.Menu;
+import ru.askir.voitingsystem.model.Restaurant;
 import ru.askir.voitingsystem.repository.MenuRepository;
 import ru.askir.voitingsystem.to.MenuTo;
 
@@ -27,7 +28,11 @@ public class MenuRepositoryImpl implements MenuRepository {
         if (!menu.isNew() && get(menu.getId(), restaurantId) == null) {
             return null;
         }
-        menu.setRestaurant(crudRestaurantRepository.getOne(restaurantId));
+        Restaurant restaurant = crudRestaurantRepository.findById(restaurantId).orElse(null);
+        if(restaurant == null) {
+            return null;
+        }
+        menu.setRestaurant(restaurant);
         return crudMenuRepository.save(menu);
 
     }
@@ -44,7 +49,7 @@ public class MenuRepositoryImpl implements MenuRepository {
 
     @Override
     public Menu getByDateSet(LocalDate dateSet, int restaurantId) {
-        return crudMenuRepository.DateSetEqualsAndRestaurant_IdEquals(dateSet, restaurantId);
+        return crudMenuRepository.get(restaurantId, dateSet);
     }
 
     @Override

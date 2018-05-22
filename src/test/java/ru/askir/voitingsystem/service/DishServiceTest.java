@@ -12,11 +12,11 @@ import ru.askir.voitingsystem.util.exception.NotFoundException;
 
 import static ru.askir.voitingsystem.data.DishTestData.*;
 import static ru.askir.voitingsystem.data.MenuTestData.MENU1_1_ID;
-import static ru.askir.voitingsystem.data.MenuTestData.MENU1_2_ID;
+import static ru.askir.voitingsystem.data.CommonTestData.WRONG_ID;
+import static ru.askir.voitingsystem.data.CommonTestData.WRONG_DATE;
 
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-//@ContextConfiguration({"classpath:spring/spring-context.xml"})
 @ContextConfiguration({"classpath:spring/spring-app.xml", "classpath:spring/spring-db.xml"})
 public class DishServiceTest extends AbstractServiceTest {
 
@@ -32,7 +32,7 @@ public class DishServiceTest extends AbstractServiceTest {
     @Test
     public void deleteNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
-        service.delete(DISH1_ID+1000);
+        service.delete(WRONG_ID);
     }
 
     @Test
@@ -40,6 +40,13 @@ public class DishServiceTest extends AbstractServiceTest {
         Dish created = getCreated();
         service.create(created, MENU1_1_ID);
         assertMatch(service.getAll(MENU1_1_ID), DISH1_1, DISH1_2, DISH1_3, created);
+    }
+
+    @Test
+    public void createNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
+        Dish created = getCreated();
+        service.create(created, WRONG_ID);
     }
 
     @Test
@@ -51,7 +58,7 @@ public class DishServiceTest extends AbstractServiceTest {
     @Test
     public void getNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
-        service.get(DISH1_ID+1000);
+        service.get(WRONG_ID);
     }
 
     @Test
@@ -65,7 +72,14 @@ public class DishServiceTest extends AbstractServiceTest {
     public void updateNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
         thrown.expectMessage("Not found entity with id=" + DISH1_ID);
-        service.update(DISH1_1, MENU1_2_ID);
+        service.update(DISH1_1, WRONG_ID);
+    }
+
+    @Test
+    public void updateNotFoundByRestaurantAndDateSet() throws Exception {
+        thrown.expect(NotFoundException.class);
+        thrown.expectMessage("Not found entity with id=" + DISH1_ID);
+        service.update(DISH1_1, WRONG_ID, WRONG_DATE);
     }
 
     @Test

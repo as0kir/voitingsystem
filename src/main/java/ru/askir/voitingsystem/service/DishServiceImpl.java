@@ -10,6 +10,7 @@ import ru.askir.voitingsystem.util.exception.NotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 
+import static ru.askir.voitingsystem.util.ValidationUtil.checkNotFound;
 import static ru.askir.voitingsystem.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
@@ -54,13 +55,13 @@ public class DishServiceImpl implements DishService {
     @Override
     public Dish create(Dish dish, int menuId) {
         Assert.notNull(dish, "dish must not be null");
-        return repository.save(dish, menuId);
+        return checkNotFound(repository.save(dish, menuId), "menuId = " + menuId);
     }
 
     @Override
     public Dish create(Dish dish, int restaurantId, LocalDate dateSet) {
         Assert.notNull(dish, "dish must not be null");
-        return repository.save(dish, restaurantId, dateSet);
+        return checkNotFound(repository.save(dish, restaurantId, dateSet), "restaurantId == " + restaurantId + " and dateSet = " + dateSet);
     }
 
     @Override
