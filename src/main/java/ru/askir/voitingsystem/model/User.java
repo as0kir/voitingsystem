@@ -1,5 +1,6 @@
 package ru.askir.voitingsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class User extends AbstractBaseEntity {
 
     @Column(name = "password", nullable = false)
     @NotBlank
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
@@ -32,6 +34,7 @@ public class User extends AbstractBaseEntity {
 
     @Column(name = "registered", columnDefinition = "timestamp default now()")
     @NotNull
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Date registered = new Date();
 
     @Enumerated(EnumType.STRING)
