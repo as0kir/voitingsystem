@@ -182,7 +182,6 @@
             "detail":"ru.askir.voitingsystem.util.exception.NotFoundException: Not found entity with id=100012"
         }
 
-
 ### Работа со справочником блюд
 
 #### Получить список блюд
@@ -239,7 +238,7 @@
             "detail":"org.hsqldb.HsqlException: integrity constraint violation: unique constraint or index violation: DISHES_UNIQUE_ID_MENU_NAME_IDX"
         }
 
-#### Обновить ресторан
+#### Обновить блюдо
     Формат запроса:
         curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"<Название блюда>","price":<Цена>}' <имя хоста>/rest/admin/restaurants/100003/menu/2018-05-23/dishes/<ID блюда> -- user <логин администратора>:<пароль>
     Пример:
