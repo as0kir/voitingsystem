@@ -54,7 +54,7 @@
         Перечень ролей:
             ADMIN, USER
     Пример:
-        curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"New","email":"new@gmail.com","password":"newPass","enabled":true,"roles":["ROLE_USER"]}' <имя хоста>/rest/admin/users --user admin@gmail.com:admin
+        curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"New","email":"new@gmail.com","password":"newPass","enabled":true,"roles":["ROLE_USER"]}' http://localhost:8080/voiting-system/rest/admin/users --user admin@gmail.com:admin
     Пример ответа:
         {
             "id": 100016,
@@ -69,7 +69,7 @@
     
     Пример ответа в случае ошибки: 
         {
-            "url": "<имя хоста>/rest/admin/users",
+            "url": "http://localhost:8080/voiting-system/rest/admin/users",
             "type": "VALIDATION_ERROR",
             "detail": "email User with this email already exists"
         }
@@ -82,7 +82,7 @@
         Перечень ролей:
             ADMIN, USER
     Пример:
-        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"New","email":"new@gmail.com","password":"newPass","enabled":true,"roles":["ROLE_USER"]}' <имя хоста>/rest/admin/users/100001 --user admin@gmail.com:admin
+        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"New","email":"new@gmail.com","password":"newPass","enabled":true,"roles":["ROLE_USER"]}' http://localhost:8080/voiting-system/rest/admin/users/100001 --user admin@gmail.com:admin
     Пример ответа:
         {
             "id": 100001,
@@ -98,15 +98,166 @@
 
 #### Удалить пользователя
     Формат запроса:
-        curl -s <имя хоста>/rest/admin/users/<ID пользователя> --user <логин администратора>:<пароль>
+        curl -s -X DELETE <имя хоста>/rest/admin/users/<ID пользователя> --user <логин администратора>:<пароль>
     Пример:
-        curl -s -X DELETE <имя хоста>/voiting-system/rest/admin/users/100001 --user admin@gmail.com:admin
+        curl -s -X DELETE http://localhost:8080/voiting-system/rest/admin/users/100001 --user admin@gmail.com:admin
     Пример ответа:
         Ничего не возвращается
     Пример ответа в случае ошибки:
         {
-            "url": "<имя хоста>/rest/admin/users/100016",
+            "url": "http://localhost:8080/voiting-system/rest/admin/users/100016",
             "type": "DATA_NOT_FOUND",
             "detail": "ru.askir.voitingsystem.util.exception.NotFoundException: Not found entity with id=100016"
+        }
+
+
+### Работа со справочником ресторанов
+
+#### Получить список ресторанов
+    Формат запроса:
+        curl -s <имя хоста>/rest/restaurants --user <логин администратора>:<пароль>
+    Пример:
+        curl -s http://localhost:8080/voiting-system/rest/admin/restaurants --user admin@gmail.com:admin
+    Пример ответа:
+        [
+            {
+                "id":100002,
+                "name":"1Утюг"
+            },
+            {
+                "id":100003,
+                "name":"2Шашлык"
+            }
+        ]
+
+#### Получить ресторан по ID
+    Формат запроса:
+        curl -s <имя хоста>/rest/admin/restaurants/<ID ресторана> --user <логин администратора>:<пароль>
+    Пример:
+        curl -s http://localhost:8080/voiting-system/rest/admin/restaurants/100002 --user admin@gmail.com:admin
+    Пример ответа:
+        {
+            "id":100002,
+            "name":"1Утюг"
+        }
+
+#### Добавить ресторан
+    Формат запроса:
+        curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"<Название ресторана>"}' <имя хоста>/rest/admin/restaurants --user <логин администратора>:<пароль>
+    Пример:
+        curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"3New"}' http://localhost:8080/voiting-system/rest/admin/restaurants --user admin@gmail.com:admin
+    Пример ответа:
+        {
+            "id":100015,
+            "name":"3New"
+        }
+    
+    Пример ответа в случае ошибки:
+        {
+            "url":"http://localhost:8080/voiting-system/rest/admin/restaurants",
+            "type":"APP_ERROR",
+            "detail":"javax.validation.ConstraintViolationException: Validation failed for classes [ru.askir.voitingsystem.model.Restaurant] during persist time for groups [javax.validation.groups.Default, ]\nList of constraint violations:[\n\tConstraintViolationImpl{interpolatedMessage='не может быть пусто', propertyPath=name, rootBeanClass=class ru.askir.voitingsystem.model.Restaurant, messageTemplate='{javax.validation.constraints.NotBlank.message}'}\n]"
+        }
+
+#### Обновить ресторан
+    Формат запроса:
+        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"<Название ресторана>"}' <имя хоста>/rest/admin/restaurants/<ID ресторана> -- user <логин администратора>:<пароль>
+    Пример:
+        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"4Update"}' http://localhost:8080/voiting-system/rest/admin/restaurants/100003 --user admin@gmail.com:admin
+    Пример ответа:
+        Ничего не возвращается
+
+
+#### Удалить ресторан
+    Формат запроса:
+        curl -s -X DELETE <имя хоста>/rest/admin/restaurants/<ID пользователя> --user <логин администратора>:<пароль>
+    Пример:
+        curl -s -X DELETE http://localhost:8080/voiting-system/rest/admin/restaurants/100002 --user admin@gmail.com:admin
+    Пример ответа:
+        Ничего не возвращается
+    Пример ответа в случае ошибки:
+        {
+            "url":"http://localhost:8080/voiting-system/rest/admin/restaurants/100012",
+            "type":"DATA_NOT_FOUND",
+            "detail":"ru.askir.voitingsystem.util.exception.NotFoundException: Not found entity with id=100012"
+        }
+
+
+### Работа со справочником блюд
+
+#### Получить список блюд
+    Формат запроса:
+        curl -s <имя хоста>/rest/admin/restaurants/<ID ресторана>/menu/<Дата меню>/dishes --user <логин администратора>:<пароль>
+    Пример:
+        curl -s http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes --user admin@gmail.com:admin
+    Пример ответа:
+        [
+            {
+                "id":100018,
+                "name":"Hamberger",
+                "price":50.00
+            }
+        ]
+
+#### Получить ресторан по ID
+    Формат запроса:
+        curl -s <имя хоста>/rest/admin/restaurants/<ID ресторана>/menu/<Дата меню>/dishes/<ID блюда> --user <логин администратора>:<пароль>
+    Пример:
+        curl -s http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes/100018 --user admin@gmail.com:admin
+    Пример ответа:
+        {
+            "id":100018,
+            "name":"Hamberger",
+            "price":50.00
+        }
+    Пример ответа в случае ошибки:
+        {
+            "url":"http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes/100019",
+            "type":"DATA_NOT_FOUND",
+            "detail":"ru.askir.voitingsystem.util.exception.NotFoundException: Not found entity with id=100019"
+        }
+
+#### Добавить блюдо
+    Формат запроса:
+        curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"<Название блюда>","price":<Цена>}' <имя хоста>/rest/admin/restaurants --user <логин администратора>:<пароль>
+    Пример:
+        curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"Hamberger","price":50.00}' http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes --user admin@gmail.com:admin
+    Пример ответа:
+        {
+            "id":100018,
+            "menu": {
+                    "id":100015,
+                    "dateSet":"2018-05-23"
+                    },
+            "name":"Hamberger",
+            "price":50.00
+        }
+    Пример ответа в случае ошибки:
+        {
+            "url":"http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes",
+            "type":"DATA_ERROR",
+            "detail":"org.hsqldb.HsqlException: integrity constraint violation: unique constraint or index violation: DISHES_UNIQUE_ID_MENU_NAME_IDX"
+        }
+
+#### Обновить ресторан
+    Формат запроса:
+        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"<Название блюда>","price":<Цена>}' <имя хоста>/rest/admin/restaurants/100003/menu/2018-05-23/dishes/<ID блюда> -- user <логин администратора>:<пароль>
+    Пример:
+        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"Hamberger","price":50.00}' http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes/100018 --user admin@gmail.com:admin
+    Пример ответа:
+        Ничего не возвращается
+
+#### Удалить блюдо
+    Формат запроса:
+        curl -s -X DELETE <имя хоста>/rest/admin/restaurants/100003/menu/2018-05-23/dishes/100015 --user <логин администратора>:<пароль>
+    Пример:
+        curl -s -X DELETE http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes/100015 --user admin@gmail.com:admin
+    Пример ответа:
+        Ничего не возвращается
+    Пример ответа в случае ошибки:
+        {
+            "url":"http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes/100015",
+            "type":"DATA_NOT_FOUND",
+            "detail":"ru.askir.voitingsystem.util.exception.NotFoundException: Not found entity with id=100015"
         }
 

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.askir.voitingsystem.model.Dish;
 import ru.askir.voitingsystem.model.Menu;
+import ru.askir.voitingsystem.model.Restaurant;
 import ru.askir.voitingsystem.repository.DishRepository;
 
 import java.time.LocalDate;
@@ -20,6 +21,9 @@ public class DishRepositoryImpl implements DishRepository {
 
     @Autowired
     CrudMenuRepository crudMenuRepository;
+
+    @Autowired
+    CrudRestaurantRepository crudRestaurantRepository;
 
     @Override
     @Transactional
@@ -43,7 +47,14 @@ public class DishRepositoryImpl implements DishRepository {
         }
         Menu menu = crudMenuRepository.get(restaurantId, dateSet);
         if(menu == null) {
-            return null;
+
+            Restaurant restaurant = crudRestaurantRepository.findById(restaurantId).orElse(null);
+            if(restaurant == null)
+                return null;
+
+            menu = new Menu(dateSet);
+            menu.setRestaurant(restaurant);
+            crudMenuRepository.save(menu);
         }
 
         dish.setMenu(menu);

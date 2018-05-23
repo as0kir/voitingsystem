@@ -19,38 +19,38 @@
 ### Restaurants
 
 #### get All restaurants
-    curl -s http://localhost:8080/voiting-system/rest/restaurants --user admin@gmail.com:admin
+    curl -s http://localhost:8080/voiting-system/rest/admin/restaurants --user admin@gmail.com:admin
 
 #### get Restaurant 100002
-    curl -s http://localhost:8080/voiting-system/rest/restaurants/100002 --user admin@gmail.com:admin
+    curl -s http://localhost:8080/voiting-system/rest/admin/restaurants/100002 --user admin@gmail.com:admin
 
 #### delete Restaurant
-    curl -s -X DELETE http://localhost:8080/voiting-system/rest/restaurants/100002 --user admin@gmail.com:admin
+    curl -s -X DELETE http://localhost:8080/voiting-system/rest/admin/restaurants/100002 --user admin@gmail.com:admin
 
 #### create Restaurant
-    curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"3New"}' http://localhost:8080/voiting-system/rest/restaurants --user admin@gmail.com:admin
+    curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"3New"}' http://localhost:8080/voiting-system/rest/admin/restaurants --user admin@gmail.com:admin
 
 #### update Restaurant
-    curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"4Update"}' http://localhost:8080/voiting-system/rest/restaurants/100003 --user admin@gmail.com:admin
+    curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"4Update"}' http://localhost:8080/voiting-system/rest/admin/restaurants/100003 --user admin@gmail.com:admin
 
 
 
 ### Menu
 
 #### get All menu
-    curl -s http://localhost:8080/voiting-system/rest/restaurants/100002/menu --user admin@gmail.com:admin
+    curl -s http://localhost:8080/voiting-system/rest/admin/restaurants/100002/menu --user admin@gmail.com:admin
 
 #### get Menu 100002
-    curl -s http://localhost:8080/voiting-system/rest/restaurants/100002/menu/100004 --user admin@gmail.com:admin
+    curl -s http://localhost:8080/voiting-system/rest/admin/restaurants/100002/menu/100004 --user admin@gmail.com:admin
 
 #### delete Menu
-    curl -s -X DELETE http://localhost:8080/voiting-system/rest/restaurants/100002/menu/100004 --user admin@gmail.com:admin
+    curl -s -X DELETE http://localhost:8080/voiting-system/rest/admin/restaurants/100002/menu/100004 --user admin@gmail.com:admin
 
 #### create Menu
-    curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"dateSet":"2018-04-09"}' http://localhost:8080/voiting-system/rest/restaurants/100002/menu --user admin@gmail.com:admin
+    curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"dateSet":"2018-04-09"}' http://localhost:8080/voiting-system/rest/admin/restaurants/100002/menu --user admin@gmail.com:admin
 
 #### update Menu
-    curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"dateSet":"2018-04-10"}' http://localhost:8080/voiting-system/rest/restaurants/100002/menu/100004 --user admin@gmail.com:admin
+    curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"dateSet":"2018-04-10"}' http://localhost:8080/voiting-system/rest/admin/restaurants/100002/menu/100004 --user admin@gmail.com:admin
 
 
 #### Форматированный вывод 
