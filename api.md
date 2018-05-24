@@ -82,7 +82,7 @@
         Перечень ролей:
             ADMIN, USER
     Пример:
-        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"New","email":"new@gmail.com","password":"newPass","enabled":true,"roles":["ROLE_USER"]}' http://localhost:8080/voiting-system/rest/admin/users/100001 --user admin@gmail.com:admin
+        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"New","email":"new@gmail.com","password":"newPass","enabled":true,"roles":["ROLE_USER"]}' http://localhost:8080/voiting-system/rest/admin/users/100000 --user admin@gmail.com:admin
     Пример ответа:
         {
             "id": 100001,
@@ -224,25 +224,36 @@
     Формат запроса:
         curl -s <имя хоста>/rest/admin/restaurants/<ID ресторана>/menu/<Дата меню>/dishes --user <логин администратора>:<пароль>
     Пример:
-        curl -s http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes --user admin@gmail.com:admin
+        curl -s http://localhost:8080/voiting-system/rest/admin/restaurants/100002/menu/2018-04-07/dishes --user admin@gmail.com:admin
     Пример ответа:
         [
             {
-                "id":100018,
-                "name":"Hamberger",
+                "id":100008,
+                "name":"1Борщ",
                 "price":50.00
+            },
+            {
+                "id":100009,
+                "name":"2Котлета",
+                "price":30.00
+            },
+            {
+                "id":100010,
+                "name":"3Компот",
+                "price":20.50
             }
         ]
+
 
 #### Получить блюдо по ID
     Формат запроса:
         curl -s <имя хоста>/rest/admin/restaurants/<ID ресторана>/menu/<Дата меню>/dishes/<ID блюда> --user <логин администратора>:<пароль>
     Пример:
-        curl -s http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes/100018 --user admin@gmail.com:admin
+        curl -s http://localhost:8080/voiting-system/rest/admin/restaurants/100002/menu/2018-04-07/dishes/100008 --user admin@gmail.com:admin
     Пример ответа:
         {
-            "id":100018,
-            "name":"Hamberger",
+            "id":100008,
+            "name":"1Борщ",
             "price":50.00
         }
     Пример ответа в случае ошибки:
@@ -254,12 +265,12 @@
 
 #### Добавить блюдо
     Формат запроса:
-        curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"<Название блюда>","price":<Цена>}' <имя хоста>/rest/admin/restaurants --user <логин администратора>:<пароль>
+        curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"<Название блюда>","price":<Цена>}' <имя хоста>/rest/admin/restaurants/<ID ресторана>/menu/<Дата меню>/dishes --user <логин администратора>:<пароль>
     Пример:
         curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"Hamberger","price":50.00}' http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes --user admin@gmail.com:admin
     Пример ответа:
         {
-            "id":100018,
+            "id":100016,
             "menu": {
                     "id":100015,
                     "dateSet":"2018-05-23"
@@ -276,15 +287,15 @@
 
 #### Обновить блюдо
     Формат запроса:
-        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"<Название блюда>","price":<Цена>}' <имя хоста>/rest/admin/restaurants/100003/menu/2018-05-23/dishes/<ID блюда> -- user <логин администратора>:<пароль>
+        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"<Название блюда>","price":<Цена>}' <имя хоста>/rest/admin/restaurants/<ID ресторана>/menu/<Дата меню>/dishes/<ID блюда> -- user <логин администратора>:<пароль>
     Пример:
-        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"Hamberger","price":50.00}' http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes/100018 --user admin@gmail.com:admin
+        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"Hamberger","price":50.00}' http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes/100016 --user admin@gmail.com:admin
     Пример ответа:
         Ничего не возвращается
 
 #### Удалить блюдо
     Формат запроса:
-        curl -s -X DELETE <имя хоста>/rest/admin/restaurants/100003/menu/2018-05-23/dishes/100015 --user <логин администратора>:<пароль>
+        curl -s -X DELETE <имя хоста>/rest/admin/restaurants/<ID ресторана>/menu/<Дата меню>/dishes/<ID блюда> --user <логин администратора>:<пароль>
     Пример:
         curl -s -X DELETE http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes/100015 --user admin@gmail.com:admin
     Пример ответа:
