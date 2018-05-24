@@ -12,44 +12,49 @@ public class DateTimeUtil {
     public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
 
-    private static LocalTime beginTime = LocalTime.of(00, 00);
-    private static LocalTime endTime = LocalTime.of(11, 00);
-    private static LocalDateTime mockDate;
+    private LocalTime beginTime;
+    private LocalTime endTime;
+    private LocalDateTime mockDate;
 
-    public static LocalDateTime getMockDate() {
+    public DateTimeUtil(LocalTime beginTime, LocalTime endTime) {
+        this.beginTime = beginTime;
+        this.endTime = endTime;
+    }
+
+    public LocalDateTime getMockDate() {
         return mockDate;
     }
 
-    public static void setMockDate(LocalDateTime mockDate) {
-        DateTimeUtil.mockDate = mockDate;
+    public void setMockDate(LocalDateTime mockDate) {
+        this.mockDate = mockDate;
     }
 
-    public static boolean enableVoite(LocalDate checkedDate) {
+    public boolean enableVoite(LocalDate checkedDate) {
         return checkedDate.equals(getCurrentDate()) && getCurrentTime().isAfter(beginTime) && getCurrentTime().isBefore(endTime);
     }
 
-    public static LocalDate getCurrentDate() {
+    public LocalDate getCurrentDate() {
         if(mockDate == null)
             return LocalDate.now();
         else
             return mockDate.toLocalDate();
     }
 
-    public static LocalDateTime getCurrentDateTime() {
-        if(mockDate == null)
+    public LocalDateTime getCurrentDateTime() {
+        if(this.mockDate == null)
             return LocalDateTime.now();
         else
-            return mockDate;
+            return this.mockDate;
     }
 
-    public static LocalTime getCurrentTime() {
+    public LocalTime getCurrentTime() {
         if(mockDate == null)
             return LocalTime.now();
         else
             return mockDate.toLocalTime();
     }
 
-    public static String toString(LocalDateTime ldt) {
+    public String toString(LocalDateTime ldt) {
         return ldt == null ? "" : ldt.format(DATE_TIME_FORMATTER);
     }
 
