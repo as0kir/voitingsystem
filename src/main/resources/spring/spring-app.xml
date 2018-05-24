@@ -13,14 +13,14 @@
     <bean class="ru.askir.voitingsystem.util.DateTimeUtil">
         <constructor-arg>
             <bean class="java.time.LocalTime" factory-method="of">
-                <constructor-arg value="00" />
-                <constructor-arg value="00" />
+                <constructor-arg value="${begin_time.hour}" />
+                <constructor-arg value="${begin_time.minute}" />
             </bean>
         </constructor-arg>
         <constructor-arg>
             <bean class="java.time.LocalTime" factory-method="of">
-                <constructor-arg value="18" />
-                <constructor-arg value="00" />
+                <constructor-arg value="${end_time.hour}" />
+                <constructor-arg value="${end_time.minute}" />
             </bean>
         </constructor-arg>
     </bean>
