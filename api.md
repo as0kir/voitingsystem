@@ -111,6 +111,42 @@
         }
 
 
+### Работа с профилем
+ 
+#### Получить профиль
+    Формат запроса:
+        curl -s <имя хоста>/rest/profile --user <логин>:<пароль>
+    Пример:
+        curl -s http://localhost:8080/voiting-system/rest/profile --user user@yandex.ru:password
+    Пример ответа:
+        {
+           "id":100000,
+           "name":"User",
+           "email":"user@yandex.ru",
+           "enabled":true,
+           "registered":"2018-05-24T12:32:43.436+0000",
+           "roles":["ROLE_USER"]
+        }
+ 
+#### Обновить профиль
+    Формат запроса:
+        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '<Описание пользователя в формате JSON>' <имя хоста>/rest/profile --user <логин>:<пароль>
+        Описание пользователя в формате JSON:
+            {"name":"<Имя пользователя>","email":"<E-mail>","password":"<Пароль>"}
+    Пример:
+        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"New","email":"new@gmail.com","password":"newPass"}' http://localhost:8080/voiting-system/rest/profile --user user@yandex.ru:password
+    Пример ответа:
+        Ничего не возвращается
+  
+#### Удалить профиль
+    Формат запроса:
+        curl -s -X DELETE <имя хоста>/rest/profile --user <логин>:<пароль>
+    Пример:
+        curl -s -X DELETE http://localhost:8080/voiting-system/rest/profile --user user@yandex.ru:password
+    Пример ответа:
+        Ничего не возвращается
+
+
 ### Работа со справочником ресторанов
 
 #### Получить список ресторанов
@@ -260,8 +296,14 @@
             "detail":"ru.askir.voitingsystem.util.exception.NotFoundException: Not found entity with id=100015"
         }
 
+### Работа с голосованием
 
-
+#### Получить список ресторанов с меню и количеством голосов          
+    Формат запроса:
+        curl -s <имя хоста>/rest/voites
+    Пример:
+        curl -s http://localhost:8080/voiting-system/rest/voites
+    Пример ответа:
         [
             {
                 "restaurantId":100002,
@@ -294,3 +336,51 @@
                 "countVoices":0
             }
         ]
+
+#### Получить список ресторанов с меню и количеством голосов на дату          
+    Формат запроса:
+        curl -s <имя хоста>/rest/voites/<дата>
+    Пример:
+        curl -s http://localhost:8080/voiting-system/rest/voites/2018-04-07
+    Пример ответа:
+        [
+            {
+                "restaurantId":100002,
+                "restaurantName":"1Утюг",
+                "menuId":100004,
+                "countVoices":2,
+                "dishes":
+                    [
+                        {
+                            "id":100008,
+                            "name":"1Борщ",
+                            "price":50.00
+                        },
+                        {
+                            "id":100009,
+                            "name":"2Котлета",
+                            "price":30.00
+                        },
+                        {
+                            "id":100010,
+                            "name":"3Компот",
+                            "price":20.50
+                        }
+                    ]
+            },
+            {
+                "restaurantId":100003,
+                "restaurantName":"2Шашлык",
+                "menuId":100006,
+                "countVoices":0
+            }
+        ]
+
+#### Проголосовать
+    Формат запроса:
+        curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" <имя хоста>/rest/voites/<ID меню> --user <логин>:<пароль>
+    Пример:
+        curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" http://localhost:8080/voiting-system/rest/voites/100004 --user user@yandex.ru:password
+    Пример ответа:
+        Ничего не возвращается
+        

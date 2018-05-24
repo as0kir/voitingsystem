@@ -16,6 +16,18 @@
     curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"New","email":"new@gmail.com","password":"newPass","enabled":true,"registered":"2018-05-02T07:45:34.895+0000","roles":["ROLE_USER"]}' http://localhost:8080/voiting-system/rest/admin/users/100001 --user admin@gmail.com:admin
 
 
+### Profile
+
+#### get Profile
+    curl -s http://localhost:8080/voiting-system/rest/profile --user admin@gmail.com:admin
+
+#### delete Profile
+    curl -s -X DELETE http://localhost:8080/voiting-system/rest/profile --user admin@gmail.com:admin
+
+#### update Profile
+    curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"New","email":"new@gmail.com","password":"newPass"}' http://localhost:8080/voiting-system/rest/profile --user admin@gmail.com:admin
+
+
 ### Restaurants
 
 #### get All restaurants
