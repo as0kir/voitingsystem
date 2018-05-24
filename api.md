@@ -198,7 +198,7 @@
             }
         ]
 
-#### Получить ресторан по ID
+#### Получить блюдо по ID
     Формат запроса:
         curl -s <имя хоста>/rest/admin/restaurants/<ID ресторана>/menu/<Дата меню>/dishes/<ID блюда> --user <логин администратора>:<пароль>
     Пример:
@@ -260,3 +260,37 @@
             "detail":"ru.askir.voitingsystem.util.exception.NotFoundException: Not found entity with id=100015"
         }
 
+
+
+        [
+            {
+                "restaurantId":100002,
+                "restaurantName":"1Утюг",
+                "menuId":100004,
+                "countVoices":2,
+                "dishes":
+                    [
+                        {
+                            "id":100008,
+                            "name":"1Борщ",
+                            "price":50.00
+                        },
+                        {
+                            "id":100009,
+                            "name":"2Котлета",
+                            "price":30.00
+                        },
+                        {
+                            "id":100010,
+                            "name":"3Компот",
+                            "price":20.50
+                        }
+                    ]
+            },
+            {
+                "restaurantId":100003,
+                "restaurantName":"2Шашлык",
+                "menuId":100006,
+                "countVoices":0
+            }
+        ]

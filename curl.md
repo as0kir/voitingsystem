@@ -35,22 +35,34 @@
 
 
 
-### Menu
+### Dishes
 
-#### get All menu
-    curl -s http://localhost:8080/voiting-system/rest/admin/restaurants/100002/menu --user admin@gmail.com:admin
+#### get All dishes
+    curl -s http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes --user admin@gmail.com:admin
 
-#### get Menu 100002
-    curl -s http://localhost:8080/voiting-system/rest/admin/restaurants/100002/menu/100004 --user admin@gmail.com:admin
+#### get dish 100018
+    curl -s http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes/100018 --user admin@gmail.com:admin
 
-#### delete Menu
-    curl -s -X DELETE http://localhost:8080/voiting-system/rest/admin/restaurants/100002/menu/100004 --user admin@gmail.com:admin
+#### delete dish
+    curl -s -X DELETE http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes/100015 --user admin@gmail.com:admin
 
-#### create Menu
-    curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"dateSet":"2018-04-09"}' http://localhost:8080/voiting-system/rest/admin/restaurants/100002/menu --user admin@gmail.com:admin
+#### create dish
+    curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"Hamberger","price":50.00}' http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes --user admin@gmail.com:admin
 
-#### update Menu
-    curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"dateSet":"2018-04-10"}' http://localhost:8080/voiting-system/rest/admin/restaurants/100002/menu/100004 --user admin@gmail.com:admin
+#### update dish
+    curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"Hamberger","price":50.00}' http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes/100018 --user admin@gmail.com:admin
+
+
+### Voites
+
+#### create voite
+    curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" http://localhost:8080/voiting-system/rest/voites/100004 --user user@yandex.ru:password
+
+#### get All 
+    curl -s http://localhost:8080/voiting-system/rest/voites
+    
+#### get All for date    
+    curl -s http://localhost:8080/voiting-system/rest/voites/2018-04-07
 
 
 #### Форматированный вывод 
