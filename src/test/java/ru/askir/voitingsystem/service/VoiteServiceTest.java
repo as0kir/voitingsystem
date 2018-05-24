@@ -27,12 +27,7 @@ public class VoiteServiceTest extends AbstractServiceTest {
     private VoiteService service;
 
     @Autowired
-    private static DateTimeUtil dateTimeUtil;
-
-    @BeforeClass
-    public static void before() {
-        dateTimeUtil.setMockDate(null);
-    }
+    private DateTimeUtil dateTimeUtil;
 
     @Test
     public void setVoite() throws Exception {
@@ -55,6 +50,7 @@ public class VoiteServiceTest extends AbstractServiceTest {
 
     @Test
     public void get() throws Exception {
+        dateTimeUtil.setMockDate(null);
         Voite actual = service.get(USER_ID, MENU1_1.getDateSet());
         assertMatch(actual, VOITE1_1);
     }

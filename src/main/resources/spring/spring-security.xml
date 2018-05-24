@@ -11,6 +11,7 @@
         <http-basic/>
         <intercept-url pattern="/rest/admin/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/rest/voites/**" method="POST" access="isAuthenticated()"/>
+        <intercept-url pattern="/rest/profile/**" access="isAuthenticated()"/>
         <intercept-url pattern="/rest/voites/**" method="GET" access="permitAll()"/>
         <csrf disabled="true"/>
     </http>

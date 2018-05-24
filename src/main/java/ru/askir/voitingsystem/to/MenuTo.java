@@ -25,9 +25,7 @@ public class MenuTo {
         this.restaurantName = restaurantName;
         this.menuId = menuId;
         this.countVoices = countVoices;
-        this.dishes = dishes;
         dishes = new ArrayList<>();
-        //dishes.add(new Dish(1, "sdfsdf", BigDecimal.valueOf(10)));
     }
 
     public MenuTo() {
