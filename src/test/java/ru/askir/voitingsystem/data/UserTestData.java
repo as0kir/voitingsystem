@@ -3,6 +3,8 @@ package ru.askir.voitingsystem.data;
 import org.springframework.test.web.servlet.ResultMatcher;
 import ru.askir.voitingsystem.model.Role;
 import ru.askir.voitingsystem.model.User;
+import ru.askir.voitingsystem.web.json.JsonUtil;
+
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -36,5 +38,9 @@ public class UserTestData {
 
     public static ResultMatcher contentJson(User expected) {
         return content().json(writeIgnoreProps(expected, "registered", "password"));
+    }
+
+    public static String jsonWithPassword(User user, String passw) {
+        return JsonUtil.writeAdditionProps(user, "password", passw);
     }
 }

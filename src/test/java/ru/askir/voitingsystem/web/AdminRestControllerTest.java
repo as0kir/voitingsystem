@@ -54,8 +54,8 @@ public class AdminRestControllerTest extends AbstractControllerTest {
         updated.setRoles(Collections.singletonList(Role.ROLE_ADMIN));
         mockMvc.perform(put(REST_URL + USER_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(updated))
-                .with(userHttpBasic(ADMIN)))
+                .with(userHttpBasic(ADMIN))
+                .content(jsonWithPassword(updated, "newPass")))
                 .andExpect(status().isOk());
 
         assertMatch(userService.get(USER_ID), updated);
@@ -66,8 +66,8 @@ public class AdminRestControllerTest extends AbstractControllerTest {
         User expected = new User(null, "New", "new@gmail.com", "newPass", Role.ROLE_USER, Role.ROLE_ADMIN);
         ResultActions action = mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(expected))
-                .with(userHttpBasic(ADMIN)))
+                .with(userHttpBasic(ADMIN))
+                .content(jsonWithPassword(expected, "newPass")))
                 .andExpect(status().isCreated());
 
         User returned = readFromJson(action, User.class);
