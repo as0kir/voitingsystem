@@ -14,8 +14,6 @@ import java.util.List;
 
 @Repository
 public class DishRepositoryImpl implements DishRepository {
-    private static final Sort SORT_NAME = new Sort(Sort.Direction.ASC, "dateSet");
-
     @Autowired
     CrudDishRepository crudDishRepository;
 

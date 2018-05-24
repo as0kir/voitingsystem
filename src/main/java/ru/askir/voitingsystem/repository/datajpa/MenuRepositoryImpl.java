@@ -14,7 +14,6 @@ import java.util.List;
 
 @Repository
 public class MenuRepositoryImpl implements MenuRepository {
-    private static final Sort SORT_NAME = new Sort(Sort.Direction.ASC, "dateSet");
 
     @Autowired
     CrudMenuRepository crudMenuRepository;

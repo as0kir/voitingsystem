@@ -11,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.askir.voitingsystem.model.Dish;
 import ru.askir.voitingsystem.service.DishService;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
@@ -38,7 +39,7 @@ public class DishRestController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Dish> createWithLocation(@RequestBody Dish dish, @PathVariable("restaurant_id") int restaurant_id, @PathVariable("date_set") LocalDate dateSet) {
+    public ResponseEntity<Dish> createWithLocation(@RequestBody @Valid Dish dish, @PathVariable("restaurant_id") int restaurant_id, @PathVariable("date_set") LocalDate dateSet) {
         checkNew(dish);
         Dish created = service.create(dish, restaurant_id, dateSet);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -55,7 +56,7 @@ public class DishRestController {
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody Dish dish, @PathVariable("restaurant_id") int restaurant_id, @PathVariable("date_set") LocalDate dateSet, @PathVariable("id") int id) {
+    public void update(@RequestBody @Valid Dish dish, @PathVariable("restaurant_id") int restaurant_id, @PathVariable("date_set") LocalDate dateSet, @PathVariable("id") int id) {
         assureIdConsistent(dish, id);
         service.update(dish, restaurant_id, dateSet);
     }    
