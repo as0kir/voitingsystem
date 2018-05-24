@@ -10,7 +10,7 @@
     <http pattern="/rest/**" use-expressions="true" name="restSecurityFilterChain" create-session="stateless">
         <http-basic/>
         <intercept-url pattern="/rest/admin/**" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/**" access="isAuthenticated()"/>
+        <intercept-url pattern="/rest/voites/**" method="POST" access="isAuthenticated()"/>
         <intercept-url pattern="/rest/voites/**" method="GET" access="permitAll()"/>
         <csrf disabled="true"/>
     </http>
