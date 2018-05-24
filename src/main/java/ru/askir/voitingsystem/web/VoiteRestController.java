@@ -37,9 +37,9 @@ public class VoiteRestController {
         return menuService.getAllWithVoites(dateSet);
     }
 
-    @PostMapping
+    @PostMapping(value = "/{idMenu}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void setVoite(@RequestParam int idMenu) {
+    public void setVoite(@PathVariable("idMenu") int idMenu) {
         int idUser = AuthorizedUser.id();
         voiteService.setVoite(idUser, idMenu);
     }

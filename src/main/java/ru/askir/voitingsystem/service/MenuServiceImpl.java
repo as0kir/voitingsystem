@@ -25,10 +25,13 @@ public class MenuServiceImpl implements MenuService {
 
     private final DishRepository dishRepository;
 
+    private final DateTimeUtil dateTimeUtil;
+
     @Autowired
-    public MenuServiceImpl(MenuRepository menuRepository, DishRepository dishRepository) {
+    public MenuServiceImpl(MenuRepository menuRepository, DishRepository dishRepository, DateTimeUtil dateTimeUtil) {
         this.menuRepository = menuRepository;
         this.dishRepository = dishRepository;
+        this.dateTimeUtil = dateTimeUtil;
     }
 
     @Override
@@ -84,6 +87,6 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<MenuTo> getAllWithVoites() {
-        return getAllWithVoites(DateTimeUtil.getCurrentDate());
+        return getAllWithVoites(dateTimeUtil.getCurrentDate());
     }
 }

@@ -24,9 +24,12 @@ public class VoiteRepositoryImpl implements VoiteRepository{
     @Autowired
     CrudMenuRepository crudMenuRepository;
 
+    @Autowired
+    DateTimeUtil dateTimeUtil;
+
     @Override
     public List<Voite> getAll() {
-        return crudVoiteRepository.getAll(DateTimeUtil.getCurrentDate());
+        return crudVoiteRepository.getAll(dateTimeUtil.getCurrentDate());
     }
 
     @Override
@@ -37,12 +40,12 @@ public class VoiteRepositoryImpl implements VoiteRepository{
     @Override
     @Transactional
     public void setVoite(int userId, int menuId) {
-        Voite voite = crudVoiteRepository.get(userId, DateTimeUtil.getCurrentDate());
+        Voite voite = crudVoiteRepository.get(userId, dateTimeUtil.getCurrentDate());
 
         if(voite != null){
             if(voite.getMenu().getId() != menuId) {
                 Menu menu = crudMenuRepository.getOne(menuId);
-                if(DateTimeUtil.enableVoite(menu.getDateSet())) {
+                if(dateTimeUtil.enableVoite(menu.getDateSet())) {
                     voite.setMenu(crudMenuRepository.getOne(menuId));
                     crudVoiteRepository.save(voite);
                 }
@@ -50,7 +53,7 @@ public class VoiteRepositoryImpl implements VoiteRepository{
         }
         else {
             Menu menu = crudMenuRepository.getOne(menuId);
-            if(DateTimeUtil.enableVoite(menu.getDateSet())) {
+            if(dateTimeUtil.enableVoite(menu.getDateSet())) {
                 voite = new Voite(crudUserRepository.getOne(userId), crudMenuRepository.getOne(menuId), LocalDateTime.now());
                 crudVoiteRepository.save(voite);
             }

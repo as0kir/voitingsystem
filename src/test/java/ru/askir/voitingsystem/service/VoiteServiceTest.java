@@ -12,6 +12,7 @@ import ru.askir.voitingsystem.model.Voite;
 import ru.askir.voitingsystem.util.DateTimeUtil;
 import ru.askir.voitingsystem.util.exception.NotFoundException;
 
+import static java.time.LocalTime.of;
 import static ru.askir.voitingsystem.data.MenuTestData.*;
 import static ru.askir.voitingsystem.data.VoiteTestData.*;
 import static ru.askir.voitingsystem.data.UserTestData.USER_ID;
@@ -25,27 +26,30 @@ public class VoiteServiceTest extends AbstractServiceTest {
     @Autowired
     private VoiteService service;
 
+    @Autowired
+    private static DateTimeUtil dateTimeUtil;
+
     @BeforeClass
     public static void before() {
-        DateTimeUtil.setMockDate(null);
+        dateTimeUtil.setMockDate(null);
     }
 
     @Test
     public void setVoite() throws Exception {
-        DateTimeUtil.setMockDate(rightDate);
+        dateTimeUtil.setMockDate(rightDate);
         service.setVoite(USER_ID, MENU2_1_ID);
         assertMatch(service.get(USER_ID, rightDate.toLocalDate()), getVoited());
     }
 
     @Test
     public void getAllForDate() throws Exception {
-        DateTimeUtil.setMockDate(rightDate);
+        dateTimeUtil.setMockDate(rightDate);
         assertMatch(service.getAll(VOITE1_1.getMenu().getDateSet()), VOITE1_1, VOITE2_1);
     }
 
     @Test
     public void getAll() throws Exception {
-        DateTimeUtil.setMockDate(VOITE1_1.getMenu().getDateSet().atStartOfDay());
+        dateTimeUtil.setMockDate(VOITE1_1.getMenu().getDateSet().atStartOfDay());
         assertMatch(service.getAll(), VOITE1_1, VOITE2_1);
     }
 
