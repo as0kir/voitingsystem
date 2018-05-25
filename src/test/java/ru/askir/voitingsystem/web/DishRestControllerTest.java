@@ -71,8 +71,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(expected))
                 .with(userHttpBasic(ADMIN)))
-                //.andExpect(status().isCreated());
-                .andExpect(status().isUnprocessableEntity());
+                .andExpect(status().isCreated());
 
         Dish returned = readFromJson(action, Dish.class);
         expected.setId(returned.getId());

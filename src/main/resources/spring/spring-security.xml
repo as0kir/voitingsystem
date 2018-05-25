@@ -16,7 +16,7 @@
         <intercept-url pattern="/rest/profile/**" method="PUT" access="isAuthenticated()"/>
         <intercept-url pattern="/rest/profile/**" method="DELETE" access="isAuthenticated()"/>
 
-        <intercept-url pattern="/rest/voites/**" method="GET" access="isAnonymous()"/>
+        <intercept-url pattern="/rest/voites/**" method="GET" access="permitAll()"/>
         <intercept-url pattern="/rest/voites/**" method="POST" access="isAuthenticated()"/>
         <csrf disabled="true"/>
     </http>

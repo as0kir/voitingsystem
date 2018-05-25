@@ -56,7 +56,7 @@ public class VoiteRestControllerTest extends AbstractControllerTest {
 
         mockMvc.perform(post(REST_URL + "{idMenu}", MENU1_1_ID)
                 .with(userHttpBasic(USER)))
-                .andExpect(status().isNoContent())
+                .andExpect(status().isUnprocessableEntity())
                 .andDo(print());
     }
 
