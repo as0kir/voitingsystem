@@ -18,15 +18,17 @@
 
 ### Profile
 
+#### register Profile
+    curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"New","email":"new@gmail.com","password":"newPass"}' http://localhost:8080/voiting-system/rest/profile
+
 #### get Profile
-    curl -s http://localhost:8080/voiting-system/rest/profile --user admin@gmail.com:admin
+    curl -s http://localhost:8080/voiting-system/rest/profile --user user@yandex.ru:password
 
 #### delete Profile
-    curl -s -X DELETE http://localhost:8080/voiting-system/rest/profile --user admin@gmail.com:admin
+    curl -s -X DELETE http://localhost:8080/voiting-system/rest/profile --user user@yandex.ru:password
 
 #### update Profile
-    curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"New","email":"new@gmail.com","password":"newPass"}' http://localhost:8080/voiting-system/rest/profile --user admin@gmail.com:admin
-
+    curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"New","email":"new@gmail.com","password":"newPass"}' http://localhost:8080/voiting-system/rest/profile --user user@yandex.ru:password
 
 ### Restaurants
 
