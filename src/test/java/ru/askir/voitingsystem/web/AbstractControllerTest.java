@@ -41,7 +41,7 @@ abstract public class AbstractControllerTest {
     @Autowired
     private CacheManager cacheManager;
 
-    @Autowired(required = false)
+    @Autowired
     private JpaUtil jpaUtil;
 
     @Autowired
@@ -62,6 +62,8 @@ abstract public class AbstractControllerTest {
     @Before
     public void setUp() {
         cacheManager.getCache("users").clear();
+        cacheManager.getCache("restaurants").clear();
+
         if (jpaUtil != null) {
             jpaUtil.clear2ndLevelHibernateCache();
         }

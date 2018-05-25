@@ -1,6 +1,7 @@
 package ru.askir.voitingsystem.service;
 
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
@@ -8,6 +9,8 @@ import org.junit.rules.Stopwatch;
 import org.junit.runner.Description;
 import org.slf4j.Logger;
 import org.slf4j.bridge.SLF4JBridgeHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,6 +21,15 @@ public abstract class AbstractServiceTest {
     private static final Logger log = getLogger("result");
 
     private static StringBuilder results = new StringBuilder();
+
+    @Autowired
+    private CacheManager cacheManager;
+
+    @Before
+    public void setUp() {
+        cacheManager.getCache("users").clear();
+        cacheManager.getCache("restaurants").clear();
+    }
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
