@@ -1,9 +1,15 @@
 package ru.askir.voitingsystem.model;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
 @Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(name = "restaurant_name", columnNames = "name")})
 public class Restaurant extends AbstractBaseEntity {

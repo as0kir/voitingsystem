@@ -30,6 +30,7 @@
 #### update Profile
     curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"New","email":"new@gmail.com","password":"newPass"}' http://localhost:8080/voiting-system/rest/profile --user user@yandex.ru:password
 
+
 ### Restaurants
 
 #### get All restaurants
