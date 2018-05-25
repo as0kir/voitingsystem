@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
+import ru.askir.voitingsystem.repository.JpaUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -25,10 +26,14 @@ public abstract class AbstractServiceTest {
     @Autowired
     private CacheManager cacheManager;
 
+    @Autowired
+    private JpaUtil jpaUtil;
+
     @Before
     public void setUp() {
         cacheManager.getCache("users").clear();
         cacheManager.getCache("restaurants").clear();
+        jpaUtil.clear2ndLevelHibernateCache();
     }
 
     @Rule
