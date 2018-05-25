@@ -9,7 +9,6 @@ import ru.askir.voitingsystem.model.Menu;
 import ru.askir.voitingsystem.to.MenuTo;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Transactional(readOnly = true)

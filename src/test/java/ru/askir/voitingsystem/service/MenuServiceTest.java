@@ -71,7 +71,7 @@ public class MenuServiceTest extends AbstractServiceTest {
     @Test
     public void getByDateSetNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
-        Menu actual = service.getByDateSet(WRONG_DATE, RESTAURANT1_ID);
+        service.getByDateSet(WRONG_DATE, RESTAURANT1_ID);
     }
 
     @Test

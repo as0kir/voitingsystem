@@ -1,7 +1,8 @@
 package ru.askir.voitingsystem.model;
 
+import ru.askir.voitingsystem.View;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
@@ -12,7 +13,7 @@ public class Menu extends AbstractBaseEntity{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_restaurant", nullable = false)
-    @NotNull
+    @NotNull(groups = View.Persist.class)
     private Restaurant restaurant;
 
     @Column(name = "date_set", nullable = false)

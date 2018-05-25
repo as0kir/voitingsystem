@@ -25,8 +25,7 @@ public class UserUtil {
     }
 
     public static User createFromTo(UserTo userTo) {
-        User user = new User(null, userTo.getName(), userTo.getEmail().toLowerCase(), userTo.getPassword(), Role.ROLE_USER);
-        return user;
+        return new User(null, userTo.getName(), userTo.getEmail().toLowerCase(), userTo.getPassword(), Role.ROLE_USER);
     }
 
     public static User prepareToSave(User user, PasswordEncoder passwordEncoder) {

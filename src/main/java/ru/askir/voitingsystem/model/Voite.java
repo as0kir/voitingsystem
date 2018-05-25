@@ -1,7 +1,8 @@
 package ru.askir.voitingsystem.model;
 
+import ru.askir.voitingsystem.View;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -11,12 +12,12 @@ public class Voite extends AbstractBaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user", nullable = false)
-    @NotNull
+    @NotNull(groups = View.Persist.class)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_menu", nullable = false)
-    @NotNull
+    @NotNull(groups = View.Persist.class)
     private Menu menu;
 
     @Column(name = "date_set", nullable = false)

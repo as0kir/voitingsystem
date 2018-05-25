@@ -1,7 +1,6 @@
 package ru.askir.voitingsystem.data;
 
 import java.time.LocalDate;
-import java.time.Month;
 
 import static java.time.LocalDate.of;
 import static ru.askir.voitingsystem.model.AbstractBaseEntity.START_SEQ;

@@ -1,6 +1,5 @@
 package ru.askir.voitingsystem.model;
 
-import org.springframework.data.domain.Persistable;
 import org.hibernate.Hibernate;
 import ru.askir.voitingsystem.HasId;
 

@@ -1,12 +1,8 @@
 package ru.askir.voitingsystem.to;
 
 import ru.askir.voitingsystem.model.Dish;
-import ru.askir.voitingsystem.model.Restaurant;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class MenuTo {

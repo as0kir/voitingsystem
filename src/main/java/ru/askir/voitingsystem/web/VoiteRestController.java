@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import ru.askir.voitingsystem.model.Voite;
 import ru.askir.voitingsystem.service.MenuService;
 import ru.askir.voitingsystem.service.VoiteService;
 import ru.askir.voitingsystem.to.MenuTo;

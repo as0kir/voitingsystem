@@ -5,6 +5,7 @@ import ru.askir.voitingsystem.model.Voite;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static java.time.LocalDateTime.of;
@@ -24,7 +25,7 @@ public class VoiteTestData {
     public static final LocalDateTime rightDate = LocalDateTime.of(2018, Month.APRIL, 7, 9, 30);
     public static final LocalDateTime wrongDate = LocalDateTime.of(2018, Month.APRIL, 7, 11, 15);
 
-    public static final List<Voite> VOITES = Arrays.asList(VOITE1_1);
+    public static final List<Voite> VOITES = Collections.singletonList(VOITE1_1);
 
     public static Voite getCreated() {
         return new Voite(null, ADMIN, MENU2_2, of(2018, Month.APRIL, 8, 10, 15));

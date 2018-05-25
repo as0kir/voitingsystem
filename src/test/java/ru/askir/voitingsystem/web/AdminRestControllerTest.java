@@ -8,7 +8,6 @@ import ru.askir.voitingsystem.TestUtil;
 import ru.askir.voitingsystem.model.Role;
 import ru.askir.voitingsystem.model.User;
 import ru.askir.voitingsystem.service.UserService;
-import ru.askir.voitingsystem.web.json.JsonUtil;
 
 import java.util.Collections;
 

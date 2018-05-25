@@ -1,6 +1,5 @@
 package ru.askir.voitingsystem.service;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +9,10 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.askir.voitingsystem.model.Voite;
 import ru.askir.voitingsystem.util.DateTimeUtil;
-import ru.askir.voitingsystem.util.exception.NotFoundException;
 
-import static java.time.LocalTime.of;
 import static ru.askir.voitingsystem.data.MenuTestData.*;
 import static ru.askir.voitingsystem.data.VoiteTestData.*;
 import static ru.askir.voitingsystem.data.UserTestData.USER_ID;
-import static ru.askir.voitingsystem.data.CommonTestData.WRONG_ID;
 
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))

@@ -12,7 +12,6 @@ import ru.askir.voitingsystem.web.json.JsonUtil;
 import java.math.BigDecimal;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -72,7 +71,8 @@ public class DishRestControllerTest extends AbstractControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(expected))
                 .with(userHttpBasic(ADMIN)))
-                .andExpect(status().isCreated());
+                //.andExpect(status().isCreated());
+                .andExpect(status().isUnprocessableEntity());
 
         Dish returned = readFromJson(action, Dish.class);
         expected.setId(returned.getId());

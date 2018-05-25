@@ -1,6 +1,5 @@
 package ru.askir.voitingsystem.repository;
 
-import org.springframework.stereotype.Repository;
 import ru.askir.voitingsystem.model.User;
 
 import java.util.List;

@@ -2,7 +2,6 @@ package ru.askir.voitingsystem.data;
 
 import org.springframework.test.web.servlet.ResultMatcher;
 import ru.askir.voitingsystem.model.Restaurant;
-import ru.askir.voitingsystem.model.User;
 
 import java.util.Arrays;
 
