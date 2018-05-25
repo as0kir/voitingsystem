@@ -24,6 +24,11 @@ public class UserUtil {
         return user;
     }
 
+    public static User createFromTo(UserTo userTo) {
+        User user = new User(null, userTo.getName(), userTo.getEmail().toLowerCase(), userTo.getPassword(), Role.ROLE_USER);
+        return user;
+    }
+
     public static User prepareToSave(User user, PasswordEncoder passwordEncoder) {
         String password = user.getPassword();
         user.setPassword(StringUtils.isEmpty(password) ? password : passwordEncoder.encode(password));

@@ -45,6 +45,11 @@ public abstract class AbstractUserController {
         return service.create(user);
     }
 
+    public User create(UserTo userTo) {
+        log.info("create {}", userTo);
+        return service.create(userTo);
+    }
+
     public void delete(int id) {
         log.info("delete {}", id);
         service.delete(id);

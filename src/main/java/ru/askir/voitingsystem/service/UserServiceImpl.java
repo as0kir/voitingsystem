@@ -36,6 +36,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return repository.save(prepareToSave(user, passwordEncoder));
     }
 
+    @Override
+    public User create(UserTo userTo) {
+        User user = createFromTo(userTo);
+        Assert.notNull(user, "user must not be null");
+        return repository.save(prepareToSave(user, passwordEncoder));
+    }
+
     public void delete(int id) throws NotFoundException {
         checkNotFoundWithId(repository.delete(id), id);
     }

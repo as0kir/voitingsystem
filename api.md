@@ -112,7 +112,30 @@
 
 
 ### Работа с профилем
- 
+
+#### Зарегистрироваться
+    Формат запроса:
+        curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '<Описание пользователя в формате JSON>' <имя хоста>/rest/profile
+        Описание пользователя в формате JSON:
+            {"name":"<Имя пользователя>","email":"<E-mail>","password":"<Пароль>"}
+    Пример:
+        curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"New","email":"new@gmail.com","password":"newPass"}' http://localhost:8080/voiting-system/rest/profile
+    Пример ответа:
+        {
+            "id":100015,
+            "name":"New",
+            "email":"new@gmail.com",
+            "enabled":true,
+            "registered":"2018-05-25T01:01:38.703+0000",
+            "roles":["ROLE_USER"]
+        }
+    Пример ответа в случае ошибки:
+        {
+            "url":"http://localhost:8080/voiting-system/rest/profile",
+            "type":"VALIDATION_ERROR",
+            "detail":"email User with this email already exists"
+        }
+
 #### Получить профиль
     Формат запроса:
         curl -s <имя хоста>/rest/profile --user <логин>:<пароль>
@@ -137,6 +160,12 @@
         curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"New","email":"new@gmail.com","password":"newPass"}' http://localhost:8080/voiting-system/rest/profile --user user@yandex.ru:password
     Пример ответа:
         Ничего не возвращается
+    Пример ответа в случае ошибки:
+        {
+            "url":"http://localhost:8080/voiting-system/rest/profile",
+            "type":"VALIDATION_ERROR",
+            "detail":"email User with this email already exists"
+        }
   
 #### Удалить профиль
     Формат запроса:
@@ -187,7 +216,6 @@
             "id":100015,
             "name":"3New"
         }
-    
     Пример ответа в случае ошибки:
         {
             "url":"http://localhost:8080/voiting-system/rest/admin/restaurants",
@@ -394,4 +422,9 @@
         curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" http://localhost:8080/voiting-system/rest/voites/100004 --user user@yandex.ru:password
     Пример ответа:
         Ничего не возвращается
-        
+    Пример ответа в случае ошибки:        
+        {
+            "url":"http://localhost:8080/voiting-system/rest/voites/100004",
+            "type":"VALIDATION_ERROR",
+            "detail":"ru.askir.voitingsystem.util.exception.IllegalRequestDataException: Not allow operation"
+        }

@@ -9,6 +9,8 @@ import java.util.List;
 public interface UserService {
     User create(User user);
 
+    User create(UserTo userTo);
+
     void delete(int id) throws NotFoundException;
 
     User get(int id) throws NotFoundException;
