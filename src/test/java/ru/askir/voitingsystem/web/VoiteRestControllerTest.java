@@ -1,10 +1,14 @@
 package ru.askir.voitingsystem.web;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import ru.askir.voitingsystem.service.MenuService;
 import ru.askir.voitingsystem.util.DateTimeUtil;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -52,12 +56,32 @@ public class VoiteRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testSetVoite() throws Exception {
-        dateTimeUtil.setMockDate(MENU1_1.getDateSet().atStartOfDay());
+
+        LocalTime beginTime = dateTimeUtil.getBeginTime();
+        LocalTime endTime = dateTimeUtil.getEndTime();
+
+        LocalDateTime testDate = MENU1_1.getDateSet().atStartOfDay();
+
+        dateTimeUtil.setMockDate(testDate);
+        dateTimeUtil.setBeginTime(testDate.toLocalTime());
+        dateTimeUtil.setEndTime(testDate.toLocalTime());
 
         mockMvc.perform(post(REST_URL + "{idMenu}", MENU1_1_ID)
                 .with(userHttpBasic(USER)))
-                .andExpect(status().isUnprocessableEntity())
+                .andExpect(status().isNoContent())
                 .andDo(print());
+
+        dateTimeUtil.setBeginTime(beginTime);
+        dateTimeUtil.setBeginTime(endTime);
+    }
+
+    @Test
+    public void testSetVoiteNotAllow() throws Exception {
+        dateTimeUtil.setMockDate(MENU1_1.getDateSet().atTime(dateTimeUtil.getEndTime().plusHours(1)));
+
+        mockMvc.perform(post(REST_URL + "{idMenu}", MENU1_1_ID)
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isUnprocessableEntity());
     }
 
     @Test

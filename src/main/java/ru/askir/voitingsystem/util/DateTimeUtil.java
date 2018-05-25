@@ -30,7 +30,23 @@ public class DateTimeUtil {
     }
 
     public boolean enableVoite(LocalDate checkedDate) {
-        return checkedDate.equals(getCurrentDate()) && getCurrentTime().isAfter(beginTime) && getCurrentTime().isBefore(endTime);
+        return checkedDate.equals(getCurrentDate()) && getCurrentTime().compareTo(beginTime) >= 0 && getCurrentTime().compareTo(endTime) <= 0;
+    }
+
+    public LocalTime getBeginTime() {
+        return beginTime;
+    }
+
+    public void setBeginTime(LocalTime beginTime) {
+        this.beginTime = beginTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
     }
 
     public LocalDate getCurrentDate() {
