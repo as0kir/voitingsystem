@@ -39,25 +39,37 @@ public class VoiteRepositoryImpl implements VoiteRepository{
 
     @Override
     @Transactional
-    public void setVoite(int userId, int menuId) {
+    public boolean setVoite(int userId, int menuId) {
         Voite voite = crudVoiteRepository.get(userId, dateTimeUtil.getCurrentDate());
 
+        // уже проголосовал в указанную дату
         if(voite != null){
+            // если поменял выбор
             if(voite.getMenu().getId() != menuId) {
                 Menu menu = crudMenuRepository.getOne(menuId);
                 if(dateTimeUtil.enableVoite(menu.getDateSet())) {
                     voite.setMenu(crudMenuRepository.getOne(menuId));
                     crudVoiteRepository.save(voite);
+                    return true;
+                }
+            }
+            // если не поменял выбор, то просто возвращает доступность изменения
+            else {
+                if(dateTimeUtil.enableVoite(voite.getMenu().getDateSet())) {
+                    return true;
                 }
             }
         }
+        // новое голосование в указанном числе
         else {
             Menu menu = crudMenuRepository.getOne(menuId);
             if(dateTimeUtil.enableVoite(menu.getDateSet())) {
                 voite = new Voite(crudUserRepository.getOne(userId), crudMenuRepository.getOne(menuId), LocalDateTime.now());
                 crudVoiteRepository.save(voite);
+                return true;
             }
         }
+        return false;
     }
 
     @Override

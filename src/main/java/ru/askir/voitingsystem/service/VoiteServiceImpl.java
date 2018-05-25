@@ -8,7 +8,7 @@ import ru.askir.voitingsystem.repository.VoiteRepository;
 import java.time.LocalDate;
 import java.util.List;
 
-import static ru.askir.voitingsystem.util.ValidationUtil.checkNotFoundWithId;
+import static ru.askir.voitingsystem.util.ValidationUtil.checkNotAllowOperation;
 
 @Service
 public class VoiteServiceImpl implements VoiteService {
@@ -32,7 +32,7 @@ public class VoiteServiceImpl implements VoiteService {
 
     @Override
     public void setVoite(int idUser, int idMenu) {
-        repository.setVoite(idUser, idMenu);
+        checkNotAllowOperation(repository.setVoite(idUser, idMenu));
     }
 
     @Override

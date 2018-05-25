@@ -3,6 +3,7 @@ package ru.askir.voitingsystem.util;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import ru.askir.voitingsystem.HasId;
 import ru.askir.voitingsystem.util.exception.IllegalRequestDataException;
 import ru.askir.voitingsystem.util.exception.NotFoundException;
@@ -30,6 +31,12 @@ public class ValidationUtil {
     public static void checkNotFound(boolean found, String msg) {
         if (!found) {
             throw new NotFoundException("Not found entity with " + msg);
+        }
+    }
+
+    public static void checkNotAllowOperation(boolean found) {
+        if (!found) {
+            throw new IllegalRequestDataException("Not allow operation");
         }
     }
 

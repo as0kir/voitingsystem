@@ -13,5 +13,5 @@ public interface VoiteRepository {
 
     Voite get(int userId, LocalDate dateSet);
 
-    void setVoite(int userId, int menuId);
+    boolean setVoite(int userId, int menuId);
 }
