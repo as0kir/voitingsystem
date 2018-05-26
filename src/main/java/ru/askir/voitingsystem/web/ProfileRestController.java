@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ru.askir.voitingsystem.View;
 import ru.askir.voitingsystem.model.User;
 import ru.askir.voitingsystem.to.UserTo;
 
@@ -29,12 +30,12 @@ public class ProfileRestController extends AbstractUserController {
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody @Valid @Validated UserTo userTo) {
+    public void update(@RequestBody @Validated(View.Web.class) UserTo userTo) {
         super.update(userTo, AuthorizedUser.id());
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> createWithLocation(@RequestBody @Valid @Validated UserTo user) {
+    public ResponseEntity<User> createWithLocation(@RequestBody @Validated(View.Web.class) UserTo user) {
         User created = super.create(user);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()

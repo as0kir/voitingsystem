@@ -23,12 +23,30 @@ import ru.askir.voitingsystem.util.exception.NotFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
 import static ru.askir.voitingsystem.util.exception.ErrorType.*;
 
 @RestControllerAdvice(annotations = RestController.class)
 @Order(Ordered.HIGHEST_PRECEDENCE + 5)
 public class ExceptionInfoHandler {
     private static Logger log = LoggerFactory.getLogger(ExceptionInfoHandler.class);
+
+    public static final String EXCEPTION_DUPLICATE_EMAIL = "User with this email already exists";
+    public static final String EXCEPTION_DUPLICATE_RESTAURANT_NAME = "Restaurant with this name already exists";
+    public static final String EXCEPTION_DUPLICATE_DISH_NAME_IN_MENU = "Dish with this name already exists in this menu";
+
+    private static final Map<String, String> CONSTRAINS_MAP = Collections.unmodifiableMap(
+        new HashMap<String, String>() {
+            {
+                put("users_unique_email_idx", EXCEPTION_DUPLICATE_EMAIL);
+                put("restaurants_unique_name_idx", EXCEPTION_DUPLICATE_RESTAURANT_NAME);
+                put("dishes_unique_id_menu_name_idx", EXCEPTION_DUPLICATE_DISH_NAME_IN_MENU);
+            }
+        });
 
     @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -52,6 +70,16 @@ public class ExceptionInfoHandler {
     @ResponseStatus(value = HttpStatus.CONFLICT)  // 409
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ErrorInfo conflict(HttpServletRequest req, DataIntegrityViolationException e) {
+        String rootMsg = ValidationUtil.getRootCause(e).getMessage();
+        if (rootMsg != null) {
+            String lowerCaseMsg = rootMsg.toLowerCase();
+            Optional<Map.Entry<String, String>> entry = CONSTRAINS_MAP.entrySet().stream()
+                    .filter(it -> lowerCaseMsg.contains(it.getKey()))
+                    .findAny();
+            if (entry.isPresent()) {
+                return new ErrorInfo(req.getRequestURL(), VALIDATION_ERROR, entry.get().getValue());
+            }
+        }
         return logAndGetErrorInfo(req, e, true, DATA_ERROR);
     }
 
