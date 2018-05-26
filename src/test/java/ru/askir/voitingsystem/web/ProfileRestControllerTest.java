@@ -3,11 +3,15 @@ package ru.askir.voitingsystem.web;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ru.askir.voitingsystem.TestUtil;
 import ru.askir.voitingsystem.model.User;
 import ru.askir.voitingsystem.service.UserService;
 import ru.askir.voitingsystem.to.UserTo;
 import ru.askir.voitingsystem.util.UserUtil;
+import ru.askir.voitingsystem.util.exception.ErrorType;
+import ru.askir.voitingsystem.web.handler.ExceptionInfoHandler;
 import ru.askir.voitingsystem.web.json.JsonUtil;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -17,6 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static ru.askir.voitingsystem.TestUtil.userHttpBasic;
 import static ru.askir.voitingsystem.data.UserTestData.*;
 import static ru.askir.voitingsystem.web.ProfileRestController.REST_URL;
+import static ru.askir.voitingsystem.web.handler.ExceptionInfoHandler.EXCEPTION_DUPLICATE_EMAIL;
 
 public class ProfileRestControllerTest extends AbstractControllerTest {
 
@@ -62,6 +67,7 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Transactional(propagation = Propagation.NEVER)
     public void testDublicateEmail() throws Exception {
         UserTo updatedTo = new UserTo(null, "admin", "admin@gmail.com", "password");
 
@@ -69,19 +75,24 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(USER))
                 .content(JsonUtil.writeValue(updatedTo)))
                 .andDo(print())
-                .andExpect(status().isUnprocessableEntity())
-                .andExpect(content().json("{'url':'http://localhost/rest/profile','type':'VALIDATION_ERROR','detail':'email User with this email already exists'}"));
+                .andExpect(status().isConflict())
+                .andExpect(errorType(ErrorType.VALIDATION_ERROR))
+                .andDo(print())
+                .andExpect(jsonMessage("$.detail", EXCEPTION_DUPLICATE_EMAIL))
+                .andDo(print());
     }
 
     @Test
+    @Transactional(propagation = Propagation.NEVER)
     public void testValidatedUpdate() throws Exception {
         UserTo updatedTo = new UserTo(null, "N", "newemail@ya.ru", "newPassword");
 
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(USER))
                 .content(JsonUtil.writeValue(updatedTo)))
-                .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(content().json("{'url':'http://localhost/rest/profile','type':'VALIDATION_ERROR','detail':'name size must be between 2 and 100'}"));
+                .andDo(print())
+                .andExpect(errorType(ErrorType.VALIDATION_ERROR))
+                .andDo(print());
     }
 }

@@ -8,16 +8,19 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import ru.askir.voitingsystem.repository.JpaUtil;
 import ru.askir.voitingsystem.service.UserService;
+import ru.askir.voitingsystem.util.exception.ErrorType;
 
 import javax.annotation.PostConstruct;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
@@ -64,5 +67,13 @@ abstract public class AbstractControllerTest {
         cacheManager.getCache("users").clear();
         cacheManager.getCache("restaurants").clear();
         jpaUtil.clear2ndLevelHibernateCache();
+    }
+
+    public ResultMatcher errorType(ErrorType type) {
+        return jsonPath("$.type").value(type.name());
+    }
+
+    public ResultMatcher jsonMessage(String path, String message) {
+        return jsonPath(path).value(message);
     }
 }
