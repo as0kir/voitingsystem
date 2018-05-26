@@ -57,7 +57,7 @@
         curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"New","email":"new@gmail.com","password":"newPass","enabled":true,"roles":["ROLE_USER"]}' http://localhost:8080/voiting-system/rest/admin/users --user admin@gmail.com:admin
     Пример ответа:
         {
-            "id": 100016,
+            "id": 100015,
             "name": "New",
             "email": "new@gmail.com",
             "enabled": true,
@@ -66,7 +66,6 @@
                 "ROLE_USER"
             ]
         }
-    
     Пример ответа в случае ошибки: 
         {
             "url": "http://localhost:8080/voiting-system/rest/admin/users",
@@ -82,25 +81,21 @@
         Перечень ролей:
             ADMIN, USER
     Пример:
-        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"New","email":"new@gmail.com","password":"newPass","enabled":true,"roles":["ROLE_USER"]}' http://localhost:8080/voiting-system/rest/admin/users/100000 --user admin@gmail.com:admin
+        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"New","email":"new@gmail.com","password":"newPass","enabled":true,"roles":["ROLE_USER"]}' http://localhost:8080/voiting-system/rest/admin/users/100015 --user admin@gmail.com:admin
     Пример ответа:
+        Ничего не возвращается
+    Пример ответа в случае ошибки:
         {
-            "id": 100001,
-            "name": "Admin",
-            "email": "admin@gmail.com",
-            "enabled": true,
-            "registered": "2018-05-22T13:26:42.393+0000",
-            "roles": [
-                "ROLE_ADMIN"
-            ]
+            "url": "http://localhost:8080/voiting-system/rest/admin/users/100015",
+            "type": "VALIDATION_ERROR",
+            "detail": "User with this email already exists"
         }
-
 
 #### Удалить пользователя
     Формат запроса:
         curl -s -X DELETE <имя хоста>/rest/admin/users/<ID пользователя> --user <логин администратора>:<пароль>
     Пример:
-        curl -s -X DELETE http://localhost:8080/voiting-system/rest/admin/users/100001 --user admin@gmail.com:admin
+        curl -s -X DELETE http://localhost:8080/voiting-system/rest/admin/users/100015 --user admin@gmail.com:admin
     Пример ответа:
         Ничего не возвращается
     Пример ответа в случае ошибки:
@@ -122,7 +117,7 @@
         curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"New","email":"new@gmail.com","password":"newPass"}' http://localhost:8080/voiting-system/rest/profile
     Пример ответа:
         {
-            "id":100015,
+            "id":100016,
             "name":"New",
             "email":"new@gmail.com",
             "enabled":true,
@@ -140,15 +135,17 @@
     Формат запроса:
         curl -s <имя хоста>/rest/profile --user <логин>:<пароль>
     Пример:
-        curl -s http://localhost:8080/voiting-system/rest/profile --user user@yandex.ru:password
+        curl -s http://localhost:8080/voiting-system/rest/profile --user new@gmail.com:newPass
     Пример ответа:
         {
-           "id":100000,
-           "name":"User",
-           "email":"user@yandex.ru",
-           "enabled":true,
-           "registered":"2018-05-24T12:32:43.436+0000",
-           "roles":["ROLE_USER"]
+            "id": 100016,
+            "name": "New",
+            "email": "new@gmail.com",
+            "enabled": true,
+            "registered": "2018-05-25T23:20:03.077+0000",
+            "roles": [
+                "ROLE_USER"
+            ]
         }
  
 #### Обновить профиль
@@ -157,7 +154,7 @@
         Описание пользователя в формате JSON:
             {"name":"<Имя пользователя>","email":"<E-mail>","password":"<Пароль>"}
     Пример:
-        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"New","email":"new@gmail.com","password":"newPass"}' http://localhost:8080/voiting-system/rest/profile --user user@yandex.ru:password
+        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"Not new","email":"new@gmail.com","password":"newPass"}' http://localhost:8080/voiting-system/rest/profile --user new@gmail.com:newPass
     Пример ответа:
         Ничего не возвращается
     Пример ответа в случае ошибки:
@@ -171,7 +168,7 @@
     Формат запроса:
         curl -s -X DELETE <имя хоста>/rest/profile --user <логин>:<пароль>
     Пример:
-        curl -s -X DELETE http://localhost:8080/voiting-system/rest/profile --user user@yandex.ru:password
+        curl -s -X DELETE http://localhost:8080/voiting-system/rest/profile --user new@gmail.com:newPass
     Пример ответа:
         Ничего не возвращается
 
@@ -205,6 +202,12 @@
             "id":100002,
             "name":"1Утюг"
         }
+    Пример ответа в случае ошибки:
+        {
+            "url":"http://localhost:8080/voiting-system/rest/admin/restaurants/100012",
+            "type":"DATA_NOT_FOUND",
+            "detail":"ru.askir.voitingsystem.util.exception.NotFoundException: Not found entity with id=100012"
+        }    
 
 #### Добавить ресторан
     Формат запроса:
@@ -219,24 +222,29 @@
     Пример ответа в случае ошибки:
         {
             "url":"http://localhost:8080/voiting-system/rest/admin/restaurants",
-            "type":"APP_ERROR",
-            "detail":"javax.validation.ConstraintViolationException: Validation failed for classes [ru.askir.voitingsystem.model.Restaurant] during persist time for groups [javax.validation.groups.Default, ]\nList of constraint violations:[\n\tConstraintViolationImpl{interpolatedMessage='не может быть пусто', propertyPath=name, rootBeanClass=class ru.askir.voitingsystem.model.Restaurant, messageTemplate='{javax.validation.constraints.NotBlank.message}'}\n]"
+            "type":"VALIDATION_ERROR",
+            "detail":"name не может быть пусто"
         }
-
+    
 #### Обновить ресторан
     Формат запроса:
         curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"<Название ресторана>"}' <имя хоста>/rest/admin/restaurants/<ID ресторана> -- user <логин администратора>:<пароль>
     Пример:
-        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"4Update"}' http://localhost:8080/voiting-system/rest/admin/restaurants/100003 --user admin@gmail.com:admin
+        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"4Update"}' http://localhost:8080/voiting-system/rest/admin/restaurants/100015 --user admin@gmail.com:admin
     Пример ответа:
         Ничего не возвращается
-
+    Пример ответа в случае ошибки:
+        {
+            "url":"http://localhost:8080/voiting-system/rest/admin/restaurants/100015",
+            "type":"VALIDATION_ERROR",
+            "detail":"Restaurant with this name already exists"
+        }
 
 #### Удалить ресторан
     Формат запроса:
         curl -s -X DELETE <имя хоста>/rest/admin/restaurants/<ID пользователя> --user <логин администратора>:<пароль>
     Пример:
-        curl -s -X DELETE http://localhost:8080/voiting-system/rest/admin/restaurants/100002 --user admin@gmail.com:admin
+        curl -s -X DELETE http://localhost:8080/voiting-system/rest/admin/restaurants/100015 --user admin@gmail.com:admin
     Пример ответа:
         Ничего не возвращается
     Пример ответа в случае ошибки:
@@ -272,7 +280,6 @@
             }
         ]
 
-
 #### Получить блюдо по ID
     Формат запроса:
         curl -s <имя хоста>/rest/admin/restaurants/<ID ресторана>/menu/<Дата меню>/dishes/<ID блюда> --user <логин администратора>:<пароль>
@@ -298,28 +305,40 @@
         curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"Hamberger","price":50.00}' http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes --user admin@gmail.com:admin
     Пример ответа:
         {
-            "id":100016,
-            "menu": {
-                    "id":100015,
-                    "dateSet":"2018-05-23"
-                    },
+            "id":100019,
+            "menu":
+                {
+                    "id":100018,
+                    "restaurant":
+                        {
+                            "id":100003,
+                            "name":"2Шашлык"
+                        },
+                    "dateSet":"2018-05-26"
+                },
             "name":"Hamberger",
             "price":50.00
         }
     Пример ответа в случае ошибки:
         {
             "url":"http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes",
-            "type":"DATA_ERROR",
-            "detail":"org.hsqldb.HsqlException: integrity constraint violation: unique constraint or index violation: DISHES_UNIQUE_ID_MENU_NAME_IDX"
+            "type":"VALIDATION_ERROR",
+            "detail":"Dish with this name already exists in this menu"
         }
 
 #### Обновить блюдо
     Формат запроса:
         curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"<Название блюда>","price":<Цена>}' <имя хоста>/rest/admin/restaurants/<ID ресторана>/menu/<Дата меню>/dishes/<ID блюда> -- user <логин администратора>:<пароль>
     Пример:
-        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"Hamberger","price":50.00}' http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes/100016 --user admin@gmail.com:admin
+        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"Hamberger","price":150.00}' http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes/100016 --user admin@gmail.com:admin
     Пример ответа:
         Ничего не возвращается
+    Пример ответа в случае ошибки:        
+        {
+            "url":"http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes/100026",
+            "type":"DATA_NOT_FOUND",
+            "detail":"ru.askir.voitingsystem.util.exception.NotFoundException: Not found entity with id=100026"
+        }
 
 #### Удалить блюдо
     Формат запроса:
