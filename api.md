@@ -216,7 +216,7 @@
         curl -s -X POST -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"3New"}' http://localhost:8080/voiting-system/rest/admin/restaurants --user admin@gmail.com:admin
     Пример ответа:
         {
-            "id":100015,
+            "id":100017,
             "name":"3New"
         }
     Пример ответа в случае ошибки:
@@ -230,12 +230,12 @@
     Формат запроса:
         curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"<Название ресторана>"}' <имя хоста>/rest/admin/restaurants/<ID ресторана> -- user <логин администратора>:<пароль>
     Пример:
-        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"4Update"}' http://localhost:8080/voiting-system/rest/admin/restaurants/100015 --user admin@gmail.com:admin
+        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"4Update"}' http://localhost:8080/voiting-system/rest/admin/restaurants/100017 --user admin@gmail.com:admin
     Пример ответа:
         Ничего не возвращается
     Пример ответа в случае ошибки:
         {
-            "url":"http://localhost:8080/voiting-system/rest/admin/restaurants/100015",
+            "url":"http://localhost:8080/voiting-system/rest/admin/restaurants/100017",
             "type":"VALIDATION_ERROR",
             "detail":"Restaurant with this name already exists"
         }
@@ -244,7 +244,7 @@
     Формат запроса:
         curl -s -X DELETE <имя хоста>/rest/admin/restaurants/<ID пользователя> --user <логин администратора>:<пароль>
     Пример:
-        curl -s -X DELETE http://localhost:8080/voiting-system/rest/admin/restaurants/100015 --user admin@gmail.com:admin
+        curl -s -X DELETE http://localhost:8080/voiting-system/rest/admin/restaurants/100017 --user admin@gmail.com:admin
     Пример ответа:
         Ничего не возвращается
     Пример ответа в случае ошибки:
@@ -330,7 +330,7 @@
     Формат запроса:
         curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"<Название блюда>","price":<Цена>}' <имя хоста>/rest/admin/restaurants/<ID ресторана>/menu/<Дата меню>/dishes/<ID блюда> -- user <логин администратора>:<пароль>
     Пример:
-        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"Hamberger","price":150.00}' http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes/100016 --user admin@gmail.com:admin
+        curl -s -X PUT -H "Content-Type:application/json;Content-Encoding:UTF-8" -d '{"name":"Hamberger","price":150.00}' http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes/100019 --user admin@gmail.com:admin
     Пример ответа:
         Ничего не возвращается
     Пример ответа в случае ошибки:        
@@ -344,7 +344,7 @@
     Формат запроса:
         curl -s -X DELETE <имя хоста>/rest/admin/restaurants/<ID ресторана>/menu/<Дата меню>/dishes/<ID блюда> --user <логин администратора>:<пароль>
     Пример:
-        curl -s -X DELETE http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes/100015 --user admin@gmail.com:admin
+        curl -s -X DELETE http://localhost:8080/voiting-system/rest/admin/restaurants/100003/menu/2018-05-23/dishes/100019 --user admin@gmail.com:admin
     Пример ответа:
         Ничего не возвращается
     Пример ответа в случае ошибки:

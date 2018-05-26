@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import ru.askir.voitingsystem.service.MenuService;
 import ru.askir.voitingsystem.service.VoiteService;
@@ -38,8 +39,8 @@ public class VoiteRestController {
 
     @PostMapping(value = "/{idMenu}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void setVoite(@PathVariable("idMenu") int idMenu) {
-        int idUser = AuthorizedUser.id();
+    public void setVoite(@PathVariable("idMenu") int idMenu, @AuthenticationPrincipal AuthorizedUser authorizedUser) {
+        int idUser = authorizedUser.getId();
         voiteService.setVoite(idUser, idMenu);
     }
 }
